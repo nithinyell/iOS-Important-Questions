@@ -1,9 +1,11 @@
 # iOS-Important-Questions
+
 <details>
   <summary>Dependency Injection</summary>
 Dependency Injection is a powerful design pattern that promotes loose coupling and enhances the testability and flexibility of your code. It allows you to inject dependencies into a class rather than having the class create or obtain them itself. Here are some examples of different types of dependency injection in Swift:
 
 1. **Constructor Injection**:
+
    ```swift
    protocol DataService {
        func fetchData() -> [String]
@@ -32,9 +34,11 @@ Dependency Injection is a powerful design pattern that promotes loose coupling a
    let myClass = MyClass(dataService: dataService)
    myClass.doSomething()
    ```
+
    In this example, `MyClass` has a required dependency on a `DataService` object. The dependency is passed into the constructor of `MyClass` and stored in a property. `MyClass` can then use the `DataService` object to perform some action, such as fetching data.
 
 2. **Property Injection**:
+
    ```swift
    protocol DataService {
        func fetchData() -> [String]
@@ -60,9 +64,11 @@ Dependency Injection is a powerful design pattern that promotes loose coupling a
    myClass.dataService = dataService
    myClass.doSomething()
    ```
+
    In this example, `MyClass` has a property that represents a `DataService` dependency. The dependency is assigned to the property after `MyClass` has been initialized. `MyClass` can then use the `DataService` object to perform some action.
 
 3. **Method Injection**:
+
    ```swift
    protocol DataService {
        func fetchData() -> [String]
@@ -85,6 +91,7 @@ Dependency Injection is a powerful design pattern that promotes loose coupling a
    let myClass = MyClass()
    myClass.doSomething(dataService: dataService)
    ```
+
    In this example, `MyClass` has a method that requires a `DataService` dependency as a parameter. The dependency is passed into the method when it is called. `MyClass` can then use the `DataService` object to perform some action within the method.
 
 By employing dependency injection, you achieve greater modularity, easier testing, and improved maintainability of your code. It enables you to decouple the creation and management of dependencies, allowing for more flexible and reusable components.
@@ -97,6 +104,7 @@ By employing dependency injection, you achieve greater modularity, easier testin
    The Single Responsibility Principle states that a class should have only one reason to change. It should have a single responsibility or purpose. Breaking down responsibilities into separate classes makes code more modular and maintainable.
 
    Example:
+
    ```swift
    struct Car {
        let make: String
@@ -112,6 +120,7 @@ By employing dependency injection, you achieve greater modularity, easier testin
    The Open/Closed Principle states that classes or entities should be open for extension but closed for modification. You should be able to add new functionality without modifying existing code.
 
    Example:
+
    ```swift
    protocol CarFeature {
        func getFeature() -> String
@@ -138,6 +147,7 @@ By employing dependency injection, you achieve greater modularity, easier testin
    The Liskov Substitution Principle states that subtypes must be substitutable for their base types without affecting the correctness of the program. It ensures that objects of a superclass can be replaced with objects of its subclasses without breaking the expected behavior.
 
    Example:
+
    ```swift
    class Vehicle {
        func startEngine() {
@@ -164,6 +174,7 @@ By employing dependency injection, you achieve greater modularity, easier testin
    The Interface Segregation Principle states that clients should not be forced to depend on interfaces they do not use. It promotes splitting large interfaces into smaller and more specific ones, tailored to the needs of the clients.
 
    Example:
+
    ```swift
    protocol CanFly {
        func fly()
@@ -191,39 +202,41 @@ By employing dependency injection, you achieve greater modularity, easier testin
 5. Dependency Inversion Principle (DIP):
    The Dependency Inversion Principle states that high-level modules should not depend on low-level modules. Instead, both should depend on abstractions.
   
-  Example:
-  ```swift
-  protocol Database {
-      func save(data: String)
-  }
+     Example:
 
-  class MySQLDatabase: Database {
-      func save(data: String) {
-          print("Data saved to MySQL database: \(data)")
-      }
-  }
+     ```swift
+     protocol Database {
+         func save(data: String)
+     }
 
-  class PostgreSQLDatabase: Database {
-      func save(data: String) {
-          print("Data saved to PostgreSQL database: \(data)")
-      }
-  }
+     class MySQLDatabase: Database {
+         func save(data: String) {
+             print("Data saved to MySQL database: \(data)")
+         }
+     }
 
-  class DataManager {
-      private let database: Database
+     class PostgreSQLDatabase: Database {
+         func save(data: String) {
+             print("Data saved to PostgreSQL database: \(data)")
+         }
+     }
 
-      init(database: Database) {
-          self.database = database
-      }
+     class DataManager {
+         private let database: Database
 
-      func saveData(data: String) {
-          database.save(data: data)
-      }
-  }
-  ```
-In this updated example, we have added a `PostgreSQLDatabase` class that conforms to the `Database` protocol. The `DataManager` class still depends on the `Database` protocol, allowing different database implementations to be injected.
+         init(database: Database) {
+             self.database = database
+         }
 
-Now, you can create instances of `DataManager` with either a `MySQLDatabase` or `PostgreSQLDatabase` object, providing flexibility in choosing the specific database implementation without modifying the `DataManager` class.
+         func saveData(data: String) {
+             database.save(data: data)
+         }
+     }
+     ```
+
+      In this updated example, we have added a `PostgreSQLDatabase` class that conforms to the `Database` protocol. The `DataManager` class still depends on the `Database` protocol, allowing different database implementations to be injected.
+
+      Now, you can create instances of `DataManager` with either a `MySQLDatabase` or `PostgreSQLDatabase` object, providing flexibility in choosing the specific database implementation without modifying the `DataManager` class.
   
   </details>
   
