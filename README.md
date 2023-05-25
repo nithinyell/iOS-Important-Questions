@@ -224,4 +224,47 @@ By employing dependency injection, you achieve greater modularity, easier testin
 In this updated example, we have added a `PostgreSQLDatabase` class that conforms to the `Database` protocol. The `DataManager` class still depends on the `Database` protocol, allowing different database implementations to be injected.
 
 Now, you can create instances of `DataManager` with either a `MySQLDatabase` or `PostgreSQLDatabase` object, providing flexibility in choosing the specific database implementation without modifying the `DataManager` class.
+  
   </details>
+  
+  <details>
+    <summary>Protocol composition</summary>
+  Protocol composition in Swift allows you to combine multiple protocols into a single requirement. It provides a way to define a new protocol that represents the combined requirements of two or more existing protocols.
+
+The syntax for protocol composition uses the `&` operator to combine protocols. Here's an example:
+
+```swift
+protocol Printable {
+    func print()
+}
+
+protocol Readable {
+    func read()
+}
+
+protocol Writable {
+    func write()
+}
+
+// Protocol composition combining Printable and Readable
+typealias PrintableReadable = Printable & Readable
+
+struct Document: PrintableReadable {
+    func print() {
+        print("Printing document...")
+    }
+
+    func read() {
+        print("Reading document...")
+    }
+}
+```
+
+In this example, we have three protocols: `Printable`, `Readable`, and `Writable`. We create a protocol composition called `PrintableReadable` using the `&` operator to combine `Printable` and `Readable`. The resulting `PrintableReadable` protocol represents the requirement of conforming to both `Printable` and `Readable`.
+
+The `Document` struct then conforms to the `PrintableReadable` protocol by implementing the required `print()` and `read()` methods.
+
+Protocol composition is useful when you want to specify a type requirement that includes multiple protocol constraints. It allows you to create more specific requirements by combining existing protocols, enabling you to express more precise behavior or capabilities that your types should have.
+
+Note that you can also use protocol compositions as types for function parameters, return types, and variable declarations, allowing you to work with objects that conform to a combination of protocols.
+</details>
