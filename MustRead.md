@@ -13,6 +13,16 @@
 
 [emuns](#enums)
 
+[Generics](#Generics)
+
+[Synthesize-Dynamic](#Synthesize-Dynamic)
+
+[Frame-Bound](#Frame-Bound)
+
+[Any-AnyObject](#Any-AnyObject)
+
+[Accessibility-Label-Indetifier](#Accessibility-Label-Indetifier)
+
 [Closures-Blocks](#Closures-Blocks)
 
 [CoreData](#CoreData)
@@ -25,6 +35,12 @@
 
 [Access-Modifiers](#Access-Modifiers)
 
+[Life-Cycle-of-App](#Life-Cycle-of-App)
+
+[Life-Cycle-of-ViewController](#Life-Cycle-of-ViewController)
+
+[AppDelegate](#AppDelegate)
+
 [OOPS-Concepts](#OOPS-Concepts)
 
 ## Delegates
@@ -33,12 +49,20 @@
 ## Structs-Class
 ## Notifications
 ## enums
+## Generics
+## Synthesize-Dynamic
+## Frame-Bound
+## Any-AnyObject
+## Accessibility-Label-Indetifier
 ## Closures-Blocks
 ## CoreData
 ## Memory-Management
 ## MethodSwizzling
 ## Type-Casting
 ## Access-Modifiers
+## Life-Cycle-of-App
+## Life-Cycle-of-ViewController
+## AppDelegate
 ## OOPS-Concepts
 
 # Multi-Threading
@@ -59,7 +83,7 @@
 [sync-async](#sync-async)
 ## sync-async
 
-# Design Patterns
+# Design Patterns TO DO - creational - structural - behaviour - decorator - observer
 [MVC](#MVC)
 
 [Singleton](#Singleton)
