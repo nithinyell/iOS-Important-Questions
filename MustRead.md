@@ -5,6 +5,8 @@
 
 [Protocols](#Protocols)
 
+[NSNotifications](#NSNotifications)
+
 [Optionals](#Optionals)
 
 [Structs-Class](#Structs-Class)
@@ -92,7 +94,14 @@ struct Bird: Swimmer, Flyer {
     }
 }
 ```
+## NSNotifications
+- Super easy way to send updates from one part of code to another part of code.
+- ```NotificationCenter.default.post(name: NSNotification.Name("MyNotificationName"), object: nil, userInfo: ["key": "value"])```
+- We can listen to notifications by adding  `observers`
+- From iOS9 no need to removeObserver, it uses weak references to know registered targets and deallocates accordingly.
+- While `delegation` is one to one; `notifications` are one to many.
 ## Optionals
+
 ## Structs-Class
 ## Notifications
 ## enums
@@ -122,6 +131,44 @@ struct Bird: Swimmer, Flyer {
 [Semaphore](#Semaphore)
 
 ## GCD
+- Grand Central Dispatch (GCD) is a low-level, powerful, and efficient concurrency framework provided by Apple in macOS, iOS, and other platforms. 
+- It offers a way to perform tasks concurrently and asynchrosly, taking advantage of multicore processors to improve the performance and responsiveness of applications.
+
+key concepts in GCD:
+
+`Dispatch Queues`:
+Dispatch queues are the fundamental building blocks of GCD. They are responsible for managing the execution of tasks in a concurrent or serial manner. There are two types of dispatch queues:
+
+`Serial Dispatch Queue`: Executes tasks in a First-In-First-Out (FIFO) order, one at a time.
+`Concurrent Dispatch Queue`: Executes tasks concurrently, allowing multiple tasks to run at the same time.
+`Global Dispatch Queues`: GCD provides global dispatch queues with different quality of service (QoS) levels. These queues are already available for you to use without needing to create your own. The QoS levels include user-interactive, user-initiated, utility, and background.
+
+`Creating Custom Dispatch Queues`:
+You can create your own custom dispatch queues if you need more control over task execution. This allows you to define your own concurrency behavior.
+
+`Dispatch Work Items`:
+A dispatch work item encapsulates a task or closure along with associated flags and can be submitted to a dispatch queue for execution.
+
+`Synchronous and Asynchronous Execution`:
+You can submit tasks to dispatch queues synchronously (blocking the current thread until the task completes) or asynchronously (allowing the current thread to continue while the task executes).
+
+`Dispatch Groups`:
+Dispatch groups allow you to monitor the completion of multiple tasks. You can use them to wait for a group of tasks to finish before executing additional code.
+
+`Semaphore`:
+Semaphores can be used to control access to a resource by multiple threads, limiting the number of threads that can access the resource concurrently.
+
+`Barrier Tasks`:
+Barrier tasks allow you to insert a task into a concurrent dispatch queue that enforces a synchronization point, ensuring that all tasks before the barrier task are complete before the barrier task begins, and no tasks after the barrier task start until it completes.
+
+Using GCD, we can write more responsive and efficient code by offloading time-consuming tasks to background threads, managing concurrent execution, and avoiding the complexities of low-level thread management.
+
+```
+DispatchQueue.global(qos: .background).async {
+    // Perform some time-consuming task here
+    print("Task performed on a background queue.")
+}
+```
 ## NSOperations
 ## Dispatch-Group
 ## Semaphore
@@ -129,7 +176,8 @@ struct Bird: Swimmer, Flyer {
 # Networking
 [sync-async](#sync-async)
 ## sync-async
-
+- Sync: The thread that initiated that operation will wait for the task to finish before continuing.
+- Async: thread will not wait for the completion.
 # Design Patterns TO DO - creational - structural - behaviour - decorator - observer
 [MVC](#MVC)
 
