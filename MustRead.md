@@ -44,6 +44,14 @@
 [OOPS-Concepts](#OOPS-Concepts)
 
 ## Delegates
+- Delegate is a design pattern that allows one object to send message to another object.
+- Delegate is an object that receive message from different object. Its a reference to the class which confirms that protocol.
+- One Onject in a program acts on behalf of another.
+- Example: Object A calls object B to perform an action. Once action is completed object A should know that B has completed task and took necessary action. This can be achieved. with Delegates.
+  - A is a delegate of object B
+  - B has reference of A
+  - A will implement delegate methods of B
+  - B will notify A through delegate methods
 ## Protocols
 ## Optionals
 ## Structs-Class
