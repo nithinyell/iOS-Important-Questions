@@ -44,15 +44,54 @@
 [OOPS-Concepts](#OOPS-Concepts)
 
 ## Delegates
-- Delegate is a design pattern that allows one object to send message to another object.
+- Delegate is a design pattern that allows one object to send message to another object. One Object in a program acts on behalf of another.
 - Delegate is an object that receive message from different object. Its a reference to the class which confirms that protocol.
-- One Onject in a program acts on behalf of another.
 - Example: Object A calls object B to perform an action. Once action is completed object A should know that B has completed task and took necessary action. This can be achieved. with Delegates.
   - A is a delegate of object B
   - B has reference of A
   - A will implement delegate methods of B
   - B will notify A through delegate methods
 ## Protocols
+- Set of methods should be implemented by the class which confirms to that protocol.
+```
+Example:
+  protocol Animal {
+    var name: String { get }
+    func makeSound()
+}
+```
+- Protocol Extension - protocols can be extended to provide method and property implementations. Extend protocols to avoid duplication.
+```
+let names = []
+let games = []
+extension: collection {
+func summarize() {
+}
+}
+names.summarize()
+games.summarize()
+```
+- Equatable Protocol: Its a protocol to do comparisions.
+- Protocol composition: Protocol composition is a feature that allows you to combine multiple protocols into a single.
+```
+protocol Swimmer {
+    func swim()
+}
+
+protocol Flyer {
+    func fly()
+}
+
+struct Bird: Swimmer, Flyer {
+    func swim() {
+        print("Bird is swimming")
+    }
+    
+    func fly() {
+        print("Bird is flying")
+    }
+}
+```
 ## Optionals
 ## Structs-Class
 ## Notifications
