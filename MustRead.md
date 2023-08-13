@@ -170,8 +170,6 @@ DispatchQueue.global(qos: .background).async {
 }
 ```
 ## NSOperations
-## Dispatch-Group
-## Semaphore
 
 # Networking
 [sync-async](#sync-async)
