@@ -105,6 +105,25 @@ struct Bird: Swimmer, Flyer {
 ## Structs-Class
 ## Notifications
 ## enums
+- Enums are data types allows to represent multiple cases/possibilities.
+- Its a data types consists of named values called members.
+  - Assiciated values:
+    - Swift enums can store associated values of any types
+      ```
+      enum Devices {
+          case iPhone(String)
+          case iPad(String)
+      }
+      ```
+  - Raw Values:
+    - Enums have raw values associated to each member
+      ```
+      enum direction {
+          case up = 1
+          case down
+          case right
+      }
+      ``` 
 ## Generics
 ## Synthesize-Dynamic
 ## Frame-Bound
