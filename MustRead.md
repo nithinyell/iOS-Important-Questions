@@ -132,12 +132,12 @@ struct Bird: Swimmer, Flyer {
 ## Closures-Blocks
 - They are reffered as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
 - They are known as blocks in obj-c
-```
-let closureName: (InputType) -> OutputType = { (parameters) in
-    // Code that does something
-    return result
-}
-```
+  ```
+  let closureName: (InputType) -> OutputType = { (parameters) in
+      // Code that does something
+      return result
+  }
+  ```
 ## Escaping Closures & Non escaping closures
 - A non-escaping closure is one that is guaranteed to finish execution before the function containing it returns. This means that the closure is synchronous and its execution is confined within the scope of the function call.
   ```
