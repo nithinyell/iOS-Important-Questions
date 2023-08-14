@@ -105,7 +105,7 @@ struct Bird: Swimmer, Flyer {
 ## Structs-Class
 ## Notifications
 ## enums
-- Enums are data types allows to represent multiple cases/possibilities.
+- Enums are data types allows to represent multiple cases/possibilities. Declase enum name with Capital letter and enum case with small letter
 - Its a data types consists of named values called members.
   - Assiciated values:
     - Swift enums can store associated values of any types
@@ -130,6 +130,26 @@ struct Bird: Swimmer, Flyer {
 ## Any-AnyObject
 ## Accessibility-Label-Indetifier
 ## Closures-Blocks
+- They are reffered as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
+- They are known as blocks in obj-c
+```
+let closureName: (InputType) -> OutputType = { (parameters) in
+    // Code that does something
+    return result
+}
+```
+## Escaping Closures & Non escaping closures
+- A non-escaping closure is one that is guaranteed to finish execution before the function containing it returns. This means that the closure is synchronous and its execution is confined within the scope of the function call.
+  ```
+  func doSomething(with closure: () -> Void) {
+    closure()
+  }
+
+  doSomething {
+    print("Closure executed.")
+  }
+  ```
+- Escaping closure that might outlive the function containing it. It can be stored and executed at a later time, even after the function has returned. This is typically seen when dealing with asynchronous operations
 ## CoreData
 ## Memory-Management
 ## MethodSwizzling
