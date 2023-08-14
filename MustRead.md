@@ -126,10 +126,6 @@ struct Bird: Swimmer, Flyer {
 
 [NSOperations](#NSOperations)
 
-[Dispatch-Group](#Dispatch-Group)
-
-[Semaphore](#Semaphore)
-
 ## GCD
 - Grand Central Dispatch (GCD) is a low-level, powerful, and efficient concurrency framework provided by Apple in macOS, iOS, and other platforms. 
 - It offers a way to perform tasks concurrently and asynchrosly, taking advantage of multicore processors to improve the performance and responsiveness of applications.
@@ -170,7 +166,15 @@ DispatchQueue.global(qos: .background).async {
 }
 ```
 ## NSOperations
-
+- Performs multithreading in obj-c/swift fashion. GCD follows c fashion.
+- Its an API built on top on GCD
+- Advantages
+  - Make one operation dependent on another
+  - reorder queues
+  - change execution priority
+  - Always follow concurrent, no serial
+  - Cancel operation
+  - completion blocks 
 # Networking
 [sync-async](#sync-async)
 ## sync-async
