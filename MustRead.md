@@ -104,16 +104,17 @@ struct Bird: Swimmer, Flyer {
 - In swift variables /properties are non optional by default
 - Optional is a type to indicate absense of value. It is defined by adding `Question mark ?` operator after type decleration
 - Advantage: To check errors during compile time rather than run time. Avoid nil related crashes
+  
 ```  
 var optionalInt: Int?
 var optionalString: String? 
 ```
-  - Force Wrapping: If we are sure about the value and we can use it, if there is no value app will crash. `use ! to unwrap`
-  - Optional Binding: Not sure about the value presense, if there is no value dont execute the block of code. `if let / if var`
-  - Implicit unwrapping: Sure about the value and dont want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
-  - Nil Coalescing: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
-  - Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = preson?.name`
-  - Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
+- Force Wrapping: If we are sure about the value and we can use it, if there is no value app will crash. `use ! to unwrap`
+- Optional Binding: Not sure about the value presense, if there is no value dont execute the block of code. `if let / if var`
+- Implicit unwrapping: Sure about the value and dont want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
+- Nil Coalescing: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
+- Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = preson?.name`
+- Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
 ## Structs-Class
 ## Notifications
 ## enums
