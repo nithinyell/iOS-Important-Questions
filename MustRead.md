@@ -203,6 +203,19 @@ ARC (Automatic Reference Counting):
     
 ---
 
+|Reference Count|Retain Count|
+|-|-|
+|Reference count refers to the number of references (pointers) to an object|Retain count is a specific type of reference count, represents the number of ownership claims on an object|
+
+Reference cycles in closures:
+- As closures are reference types, they cause cycles
+- Capture listdefines a relationship between closure and other objects in captures
+  ```
+  {[weak self] in
+  ....
+  }
+  ```
+---
 |Atomic|Non Atomic|
 |-|-|
 |Allows only one thread to access the variable|Allows multiple threads to access the variable|
@@ -211,6 +224,23 @@ ARC (Automatic Reference Counting):
 
 ---
 
+Memory Leaks
+- A Situation where two objects are no longer required, but hold references to each other
+- Since each has non-zero reference count, object cant deallocate
+- Strong reference cycles foolds ARC and prevents it from cleaning
+- Unless specified all the references are strong & impact reference count
+  - Weak reference do not impact reference count of object also dont participate in life cycle management of an object
+  - As weak referencs are optional, when count is zero, the reference can be automatically set to `nil`
+
+___
+
+||var|let|optional|non optional|
+|-|-|-|-|-|
+|strong|✅|✅|✅|✅|
+|weak|✅|❌|✅|❌|
+|unowned|✅|✅|❌|✅|
+
+---
 
 ## MethodSwizzling
 ## Type-Casting
