@@ -165,6 +165,53 @@ var optionalString: String?
 - Escaping closure that might outlive the function containing it. It can be stored and executed at a later time, even after the function has returned. This is typically seen when dealing with asynchronous operations
 ## CoreData
 ## Memory-Management
+- Strong: Its default behaviour, used to create the strong reference of the object; It increases the reference count of the object, Reference will be maintained through out the life-cycle of the object. Example: `ViewControllers`
+- Weak: We are pointing to the object but not increasing the reference count. Often used while creating parent child relation ship. Example: `IBOutlets`, `delegates`, `subViews` & `closures`
+- Unknowed: Same as weak but `must not be optional`
+---
+
+Retain: Increases the retain count of object and takes the ownership of object
+Release: Decreases the retain count of object and relinqushes ownership of object
+
+---
+
+Copy: It is required when object is mutable. It's commonly used with mutable objects to ensure that changes made to the copied object don't affect the original.
+
+---
+
+Retain Count: 
+- The way in which memory is managed in Objective - C
+- Create an object, retain count is +1
+- Send object to retain message, retain count is +1
+- Send object to release message, retain count is -1
+- Send object to auto-release message, retain count is -1
+- When retain count is `0` object is deallocated memory is free
+
+---
+
+ARC (Automatic Reference Counting):
+- A technique used to track and mange apps memory
+- When a new class is created, it creates a memory and stores the information
+- When the class is no longer needed, ARC frees up the memory used by that instance
+- In simpke words; A memory management technique in iOS/macOS development where the compiler automatically inserts retain, release, and autorelease messages, eliminating the need for manual memory management
+- Object Life Cycle
+  - allocation: takes memory
+  - initialization: init
+  - usage
+  - deinitialization: deinit
+  - deallocation: return memory
+    
+---
+
+|Atomic|Non Atomic|
+|-|-|
+|Allows only one thread to access the variable|Allows multiple threads to access the variable|
+|Thread safe|Thread unsafe|
+|Slow preformance|Fast performance|
+
+---
+
+
 ## MethodSwizzling
 ## Type-Casting
 ## Access-Modifiers
