@@ -116,6 +116,24 @@ var optionalString: String?
 - Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = preson?.name`
 - Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
 ## Structs-Class
+Both of them will have properties, methods, initializers and conform to the protocals
+Struct:
+- Each instance will keep the unique copy of data
+- Structs are value types
+- When struct is assigned to a var, constant or passed to a function, its value is copied instead of increasing the reference count
+- Thread safe because its not sharable
+- They are allocated on stack and occupies less memory and fast
+Class:
+- Each instance will share the same copy of data
+- Class are reference type
+- When a class is assigned to var, constant or passed to function, its reference count is increased
+- They also have extra stuff like inheritance & deintializers
+- They are allocated in on heap memory
+
+|Value Type|Reference Type|
+|-|-|
+|Int, Double, String, Array, Dictionary, Set, Struct, enum & Tuple|Classes, function & closures|
+
 ## Notifications
 ## enums
 - Enums are data types allows to represent multiple cases/possibilities. Declase enum name with Capital letter and enum case with small letter
