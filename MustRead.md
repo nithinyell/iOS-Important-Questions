@@ -9,11 +9,11 @@
 
 [Optionals](#Optionals)
 
-[Structs-Class](#Structs-Class)
+[Struct-Class](#Structs-Class)
 
 [Notifications](#Notifications)
 
-[emuns](#enums)
+[enum](#enums)
 
 [Generics](#Generics)
 
@@ -23,7 +23,7 @@
 
 [Any-AnyObject](#Any-AnyObject)
 
-[Accessibility-Label-Indetifier](#Accessibility-Label-Indetifier)
+[Accessibility-Label-Identifier](#Accessibility-Label-Indetifier)
 
 [Closures-Blocks](#Closures-Blocks)
 
@@ -73,7 +73,7 @@ func summarize() {
 names.summarize()
 games.summarize()
 ```
-- Equatable Protocol: Its a protocol to do comparisions.
+- Equatable Protocol: Its a protocol to do comparison.
 - Protocol composition: Protocol composition is a feature that allows you to combine multiple protocols into a single.
 ```
 protocol Swimmer {
@@ -98,11 +98,11 @@ struct Bird: Swimmer, Flyer {
 - Super easy way to send updates from one part of code to another part of code.
 - ```NotificationCenter.default.post(name: NSNotification.Name("MyNotificationName"), object: nil, userInfo: ["key": "value"])```
 - We can listen to notifications by adding  `observers`
-- From iOS9 no need to removeObserver, it uses weak references to know registered targets and deallocates accordingly.
+- From iOS9 no need to removeObserver, it uses weak references to know registered targets and de-allocates accordingly.
 - While `delegation` is one to one; `notifications` are one to many.
 ## Optionals
 - In swift variables /properties are non optional by default
-- Optional is a type to indicate absense of value. It is defined by adding `Question mark ?` operator after type decleration
+- Optional is a type to indicate absence of value. It is defined by adding `Question mark ?` operator after type declaration
 - Advantage: To check errors during compile time rather than run time. Avoid nil related crashes
   
 ```  
@@ -110,14 +110,14 @@ var optionalInt: Int?
 var optionalString: String? 
 ```
 - Force Wrapping: If we are sure about the value and we can use it, if there is no value app will crash. `use ! to unwrap`
-- Optional Binding: Not sure about the value presense, if there is no value dont execute the block of code. `if let / if var`
-- Implicit unwrapping: Sure about the value and dont want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
+- Optional Binding: Not sure about the value presence, if there is no value don't execute the block of code. `if let / if var`
+- Implicit unwrapping: Sure about the value and don't want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
 - Nil Coalescing: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
-- Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = preson?.name`
+- Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = person?.name`
 - Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
-## Structs-Class
+## Struct-Class
 
-Both of them will have properties, methods, initializers and conform to the protocals
+Both of them will have properties, methods, initializers and conform to the protocol
 
 Struct:
 - Each instance will keep the unique copy of data
@@ -130,7 +130,7 @@ Class:
 - Each instance will share the same copy of data
 - Class are reference type
 - When a class is assigned to var, constant or passed to function, its reference count is increased
-- They also have extra stuff like inheritance & deintializers
+- They also have extra stuff like inheritance & de-initializers
 - They are allocated in on heap memory
 
 |Value Type|Reference Type|
@@ -139,9 +139,9 @@ Class:
 
 ## Notifications
 ## enums
-- Enums are data types allows to represent multiple cases/possibilities. Declase enum name with Capital letter and enum case with small letter
+- Enums are data types allows to represent multiple cases/possibilities. Declare enum name with Capital letter and enum case with small letter
 - Its a data types consists of named values called members.
-  - Assiciated values:
+  - Associated values:
     - Swift enums can store associated values of any types
       ```
       enum Devices {
@@ -162,9 +162,9 @@ Class:
 ## Synthesize-Dynamic
 ## Frame-Bound
 ## Any-AnyObject
-## Accessibility-Label-Indetifier
+## Accessibility-Label-Identifier
 ## Closures-Blocks
-- They are reffered as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
+- They are referred as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
 - They are known as blocks in obj-c
   ```
   let closureName: (InputType) -> OutputType = { (parameters) in
@@ -186,13 +186,13 @@ Class:
 - Escaping closure that might outlive the function containing it. It can be stored and executed at a later time, even after the function has returned. This is typically seen when dealing with asynchronous operations
 ## CoreData
 ## Memory-Management
-- Strong: Its default behaviour, used to create the strong reference of the object; It increases the reference count of the object, Reference will be maintained through out the life-cycle of the object. Example: `ViewControllers`
+- Strong: Its default behavior, used to create the strong reference of the object; It increases the reference count of the object, Reference will be maintained through out the life-cycle of the object. Example: `ViewControllers`
 - Weak: We are pointing to the object but not increasing the reference count. Often used while creating parent child relation ship. Example: `IBOutlets`, `delegates`, `subViews` & `closures`
-- Unknowed: Same as weak but `must not be optional`
+- unowned: Same as weak but `must not be optional`
 ---
 
 Retain: Increases the retain count of object and takes the ownership of object
-Release: Decreases the retain count of object and relinqushes ownership of object
+Release: Decreases the retain count of object and relinquishes ownership of object
 
 ---
 
@@ -206,7 +206,7 @@ Retain Count:
 - Send object to retain message, retain count is +1
 - Send object to release message, retain count is -1
 - Send object to auto-release message, retain count is -1
-- When retain count is `0` object is deallocated memory is free
+- When retain count is `0` object is de-allocated memory is free
 
 ---
 
@@ -214,13 +214,13 @@ ARC (Automatic Reference Counting):
 - A technique used to track and mange apps memory
 - When a new class is created, it creates a memory and stores the information
 - When the class is no longer needed, ARC frees up the memory used by that instance
-- In simpke words; A memory management technique in iOS/macOS development where the compiler automatically inserts retain, release, and autorelease messages, eliminating the need for manual memory management
+- In simple words; A memory management technique in iOS/macOS development where the compiler automatically inserts retain, release, and auto-release messages, eliminating the need for manual memory management
 - Object Life Cycle
   - allocation: takes memory
   - initialization: init
   - usage
-  - deinitialization: deinit
-  - deallocation: return memory
+  - de initialization: deinit
+  - de-allocation: return memory
     
 ---
 
@@ -230,7 +230,7 @@ ARC (Automatic Reference Counting):
 
 Reference cycles in closures:
 - As closures are reference types, they cause cycles
-- Capture listdefines a relationship between closure and other objects in captures
+- Capture list defines a relationship between closure and other objects in captures
   ```
   {[weak self] in
   ....
@@ -241,17 +241,17 @@ Reference cycles in closures:
 |-|-|
 |Allows only one thread to access the variable|Allows multiple threads to access the variable|
 |Thread safe|Thread unsafe|
-|Slow preformance|Fast performance|
+|Slow performance|Fast performance|
 
 ---
 
 Memory Leaks
 - A Situation where two objects are no longer required, but hold references to each other
-- Since each has non-zero reference count, object cant deallocate
-- Strong reference cycles foolds ARC and prevents it from cleaning
+- Since each has non-zero reference count, object cant de-allocate
+- Strong reference cycles fools ARC and prevents it from cleaning
 - Unless specified all the references are strong & impact reference count
-  - Weak reference do not impact reference count of object also dont participate in life cycle management of an object
-  - As weak referencs are optional, when count is zero, the reference can be automatically set to `nil`
+  - Weak reference do not impact reference count of object also don't participate in life cycle management of an object
+  - As weak references are optional, when count is zero, the reference can be automatically set to `nil`
 
 ___
 
@@ -278,7 +278,7 @@ ___
 
 ## GCD
 - Grand Central Dispatch (GCD) is a low-level, powerful, and efficient concurrency framework provided by Apple in macOS, iOS, and other platforms. 
-- It offers a way to perform tasks concurrently and asynchrosly, taking advantage of multicore processors to improve the performance and responsiveness of applications.
+- It offers a way to perform tasks concurrently and asynchronously, taking advantage of multi core processors to improve the performance and responsiveness of applications.
 
 key concepts in GCD:
 
@@ -315,6 +315,7 @@ DispatchQueue.global(qos: .background).async {
     print("Task performed on a background queue.")
 }
 ```
+
 ## NSOperations
 - Performs multithreading in obj-c/swift fashion. GCD follows c fashion.
 - Its an API built on top on GCD
@@ -330,12 +331,12 @@ DispatchQueue.global(qos: .background).async {
 ## sync-async
 - Sync: The thread that initiated that operation will wait for the task to finish before continuing.
 - Async: thread will not wait for the completion.
-# Design Patterns TO DO - creational - structural - behaviour - decorator - observer
+# Design Patterns TO DO - creational - structural - behavior - decorator - observer
 [MVC](#MVC)
 
 [Singleton](#Singleton)
 ## MVC
-MVC stands for Model-View-Controller, and it is a widely used design pattern for architecting software applications. In iOS development, the MVC pattern is commonplace and many of Apple's frameworks are built around it.
+MVC stands for Model-View-Controller, and it is a widely used design pattern for architecture of software applications. In iOS development, the MVC pattern is commonplace and many of Apple's frameworks are built around it.
 
 The MVC pattern is made up of three main objects: the Model, the View, and the Controller.
 
