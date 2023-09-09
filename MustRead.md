@@ -322,7 +322,7 @@ The MVC pattern is made up of three main objects: the Model, the View, and the C
 - The **Model** is where your data resides. Things like persistence, model objects, parsers, managers, and networking code live there.
 - The **View** layer is the face of your app. Its classes are often reusable as they don’t contain any domain-specific logic. For example, a UILabel is a view that presents text on the screen, and it’s reusable and extensible.
 - The **Controller** mediates between the view and the model via the delegation pattern. In an ideal scenario, the controller entity won’t know the concrete view it’s dealing with. Instead, it will communicate with an abstraction via a protocol. A classic example is the way a UITableView communicates with its data source via the UITableViewDataSource protocol
-![image](https://github.com/nithinyell/iOS-Important-Questions/assets/18254027/6428c299-45b3-4c7d-baff-2ed12b74fb63)
+<img width="1888" alt="MVC" src="https://github.com/nithinyell/iOS-Important-Questions/assets/18254027/de2f4005-df85-47d3-b74b-e3b5d5859159">
 
 ## Singleton
 - A design pattern ensure there is only one instance exists for the given class and there is a global access point for that instance.
