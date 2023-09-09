@@ -30,6 +30,9 @@
 ## Life-Cycle-of-ViewController
 ## AppDelegate Methods
 ## OOPS-Concepts
+## self vs Self
+## Dynamic vs Static Libraries
+## Clean Architecture
 
 # Misc
 ## CI-CD
