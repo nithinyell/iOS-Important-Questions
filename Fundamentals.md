@@ -1,49 +1,4 @@
-# Important Questions
-
 # Foundation
-[Delegates](#Delegates)
-
-[Protocols](#Protocols)
-
-[NSNotifications](#NSNotifications)
-
-[Optionals](#Optionals)
-
-[Struct-Class](#Structs-Class)
-
-[Notifications](#Notifications)
-
-[enum](#enums)
-
-[Generics](#Generics)
-
-[Synthesize-Dynamic](#Synthesize-Dynamic)
-
-[Frame-Bound](#Frame-Bound)
-
-[Any-AnyObject](#Any-AnyObject)
-
-[Accessibility-Label-Identifier](#Accessibility-Label-Indetifier)
-
-[Closures-Blocks](#Closures-Blocks)
-
-[CoreData](#CoreData)
-
-[Memory-Management](Memory-Management)
-
-[MethodSwizzling](#MethodSwizzling)
-
-[Type-Casting](#Type-Casting)
-
-[Access-Modifiers](#Access-Modifiers)
-
-[Life-Cycle-of-App](#Life-Cycle-of-App)
-
-[Life-Cycle-of-ViewController](#Life-Cycle-of-ViewController)
-
-[AppDelegate](#AppDelegate)
-
-[OOPS-Concepts](#OOPS-Concepts)
 
 ## Delegates
 - Delegate is a design pattern that allows one object to send message to another object. One Object in a program acts on behalf of another.
@@ -67,13 +22,15 @@ Example:
 let names = []
 let games = []
 extension: collection {
-func summarize() {
-}
+  func summarize() {
+    // ...
+  }
 }
 names.summarize()
 games.summarize()
 ```
-- Equatable Protocol: Its a protocol to do comparison.
+- `Equatable Protocol`: Its a protocol to do comparison.
+- `Hashable protocol`: Is used to define a type that can be hashed, which means it can be converted into a unique integer value (hash) based on its contents. Hashing is a fundamental concept in computer science and is used in various data structures and algorithms, such as dictionaries and sets, **to quickly look up values**.
 - Protocol composition: Protocol composition is a feature that allows you to combine multiple protocols into a single.
 ```
 protocol Swimmer {
