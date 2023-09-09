@@ -1,5 +1,5 @@
 # Table of contents
 
-* [iOS-Important-Questions](README.md)
+* [Fundamentals](README.md)
 * [Assorted](Assorted.md)
-* [Fundamentals](Fundamentals.md)
+* [iOS-Important-Questions](ios-important-questions.md)
