@@ -1,5 +1,3 @@
-# iOS-Important-Questions
-
 <details>
 
 <summary>Dependency Injection</summary>
