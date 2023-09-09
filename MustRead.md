@@ -120,7 +120,7 @@ var optionalString: String?
 Both of them will have properties, methods, initializers and conform to the protocol
 
 Struct:
-- Each instance will keep the unique copy of data
+- Each instance will keep the unique copy of data - `Copy on writes`
 - Structs are value types
 - When struct is assigned to a var, constant or passed to a function, its value is copied instead of increasing the reference count
 - Thread safe because its not sharable
