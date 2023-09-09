@@ -94,12 +94,14 @@ struct Bird: Swimmer, Flyer {
     }
 }
 ```
+
 ## NSNotifications
 - Super easy way to send updates from one part of code to another part of code.
 - ```NotificationCenter.default.post(name: NSNotification.Name("MyNotificationName"), object: nil, userInfo: ["key": "value"])```
 - We can listen to notifications by adding  `observers`
 - From iOS9 no need to removeObserver, it uses weak references to know registered targets and de-allocates accordingly.
 - While `delegation` is one to one; `notifications` are one to many.
+  
 ## Optionals
 - In swift variables /properties are non optional by default
 - Optional is a type to indicate absence of value. It is defined by adding `Question mark ?` operator after type declaration
@@ -115,8 +117,8 @@ var optionalString: String?
 - Nil Coalescing: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
 - Optional Chaining:  Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = person?.name`
 - Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
+  
 ## Struct-Class
-
 Both of them will have properties, methods, initializers and conform to the protocol
 
 Struct:
@@ -137,7 +139,6 @@ Class:
 |-|-|
 |Int, Double, String, Array, Dictionary, Set, Struct, enum & Tuple|Classes, function & closures|
 
-## Notifications
 ## enums
 - Enums are data types allows to represent multiple cases/possibilities. Declare enum name with Capital letter and enum case with small letter
 - Its a data types consists of named values called members.
@@ -158,11 +159,6 @@ Class:
           case right
       }
       ``` 
-## Generics
-## Synthesize-Dynamic
-## Frame-Bound
-## Any-AnyObject
-## Accessibility-Label-Identifier
 ## Closures-Blocks
 - They are referred as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
 - They are known as blocks in obj-c
@@ -184,7 +180,6 @@ Class:
   }
   ```
 - Escaping closure that might outlive the function containing it. It can be stored and executed at a later time, even after the function has returned. This is typically seen when dealing with asynchronous operations
-## CoreData
 ## Memory-Management
 - Strong: Its default behavior, used to create the strong reference of the object; It increases the reference count of the object, Reference will be maintained through out the life-cycle of the object. Example: `ViewControllers`
 - Weak: We are pointing to the object but not increasing the reference count. Often used while creating parent child relation ship. Example: `IBOutlets`, `delegates`, `subViews` & `closures`
@@ -263,19 +258,7 @@ ___
 
 ---
 
-## MethodSwizzling
-## Type-Casting
-## Access-Modifiers
-## Life-Cycle-of-App
-## Life-Cycle-of-ViewController
-## AppDelegate
-## OOPS-Concepts
-
 # Multi-Threading
-[GCD](#GCD)
-
-[NSOperations](#NSOperations)
-
 ## GCD
 - Grand Central Dispatch (GCD) is a low-level, powerful, and efficient concurrency framework provided by Apple in macOS, iOS, and other platforms. 
 - It offers a way to perform tasks concurrently and asynchronously, taking advantage of multi core processors to improve the performance and responsiveness of applications.
@@ -327,14 +310,10 @@ DispatchQueue.global(qos: .background).async {
   - Cancel operation
   - completion blocks 
 # Networking
-[sync-async](#sync-async)
 ## sync-async
 - Sync: The thread that initiated that operation will wait for the task to finish before continuing.
 - Async: thread will not wait for the completion.
 # Design Patterns TO DO - creational - structural - behavior - decorator - observer
-[MVC](#MVC)
-
-[Singleton](#Singleton)
 ## MVC
 MVC stands for Model-View-Controller, and it is a widely used design pattern for architecture of software applications. In iOS development, the MVC pattern is commonplace and many of Apple's frameworks are built around it.
 
@@ -362,10 +341,3 @@ The MVC pattern is made up of three main objects: the Model, the View, and the C
   }
   ```
 - userDefaults, notificationCenter, fileManger are few examples for singleton from apple.
-# Misc
-[CI-CD](#CI-CD)
-[Push-Notifications](#Push-Notifications)
-[SSH-Pinning](#SSH-Pinning)
-## CI-CD
-## Push-Notifications
-## SSH-Pinning
