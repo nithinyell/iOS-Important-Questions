@@ -1,6 +1,6 @@
 # Important Questions
 
-# Basics
+# Foundation
 [Delegates](#Delegates)
 
 [Protocols](#Protocols)
