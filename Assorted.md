@@ -26,6 +26,10 @@
 - Static dispatch, also known as `early binding`, occurs at compile time.
 - Dynamic dispatch, also known as `late binding`, occurs at runtime.
 
+## Dynamic vs Static Libraries
+- A static library is compiled and linked with the application code at compile time.
+- A dynamic library is compiled separately from the application and linked at runtime.
+
 ## CoreData
 ## MethodSwizzling
 ## Type-Casting
@@ -35,7 +39,6 @@
 ## AppDelegate Methods
 ## OOPS-Concepts
 ## self vs Self
-## Dynamic vs Static Libraries
 ## Clean Architecture
 
 # Misc
