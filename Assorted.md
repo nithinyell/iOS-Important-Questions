@@ -21,7 +21,11 @@
 ## AccessibilityLabel and AccessibilityIdentifier
 - Lable is used for Screen reading (Voice Over)
 - Id is used for identifying UI elements for UI testing
-    
+
+## Dynaminc vs Static Dispatch
+- Static dispatch, also known as `early binding`, occurs at compile time.
+- Dynamic dispatch, also known as `late binding`, occurs at runtime.
+
 ## CoreData
 ## MethodSwizzling
 ## Type-Casting
