@@ -13,6 +13,7 @@ Hello and Thanks for considering me for the position
     - Implemented AB Testy in firebase for couple of features
     - Analyzing crash logs using desymbolicated files
     - Implemented E2E testing using maestro and appium
+    - Managing developer accounts
     - Accessibility improvements
     - Documenting new releases
     - Picking high priority bugs during production support 
