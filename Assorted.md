@@ -30,6 +30,10 @@
 - A static library is compiled and linked with the application code at compile time.
 - A dynamic library is compiled separately from the application and linked at runtime.
 
+## lazy keyword
+## defer keyword
+## Stack vs Heap
+## mutating func
 ## CoreData
 ## MethodSwizzling
 ## Type-Casting
