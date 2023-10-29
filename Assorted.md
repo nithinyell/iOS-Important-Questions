@@ -39,6 +39,8 @@
   - Internal: default access level, visible in the same module
 
 ## lazy keyword
+  - A lazy var is a property whose initial value is not calculated until the first time it’s called.
+  - If it's never called, the var/function is never run, so it does help save processing time and memory.
 ## static keyword
   - We can directly access the static properties and methods of a class with help of class itself `instead of creating the instance of the class`.
 ## defer keyword
