@@ -30,7 +30,17 @@
 - A static library is compiled and linked with the application code at compile time.
 - A dynamic library is compiled separately from the application and linked at runtime.
 
+## Access Modifiers
+  - Final: Cannot override and subclass
+  - Public: Only visisble outside module, cant override or subclass 
+  - Open: Not only visible outside of module, we can override and subclass
+  - Private: Visible only enclosing declerations and in the extension of same source file
+  - FilePrivate: Visible only in the declared source file
+  - Internal: default access level, visible in the same module
+
 ## lazy keyword
+## static keyword
+  - We can directly access the static properties and methods of a class with help of class itself `instead of creating the instance of the class`.
 ## defer keyword
 ## Stack vs Heap
 ## mutating func
@@ -39,6 +49,7 @@
 ## Type-Casting
 ## Access-Modifiers
 ## Life-Cycle-of-App
+  ![life cycle app](https://github.com/nithinyell/iOS-Important-Questions/assets/18254027/d95d9a41-d17c-4f4c-8665-23b22f56a7bb)
 ## Life-Cycle-of-ViewController
 ## AppDelegate Methods
 ## OOPS-Concepts
