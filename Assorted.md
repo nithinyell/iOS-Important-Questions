@@ -30,6 +30,14 @@
 - A static library is compiled and linked with the application code at compile time.
 - A dynamic library is compiled separately from the application and linked at runtime.
 
+## Stack vs Heap
+  |Stack|Heap|
+  |-|-|
+  |Used for `static memory` allocation|Used for `dynamic memory` allocation|
+  |Value types are stored in stack|Reference types are stored in heap|
+  |Allocation happens during compile time|Allocation happens during runtime|
+  |LIFO||
+  
 ## Access Modifiers
   - Final: Cannot override and subclass
   - Public: Only visisble outside module, cant override or subclass 
@@ -72,14 +80,6 @@
     First defer
     ```
     
-## Stack vs Heap
-  |Stack|Heap|
-  |-|-|
-  |Used for `static memory` allocation|Used for `dynamic memory` allocation|
-  |Value types are stored in stack|Reference types are stored in heap|
-  |Allocation happens during compile time|Allocation happens during runtime|
-  |LIFO||
-  
 ## mutating func
 ## CoreData
 ## MethodSwizzling
