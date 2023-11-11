@@ -34,7 +34,7 @@
   |Stack|Heap|
   |-|-|
   |Used for `static memory` allocation|Used for `dynamic memory` allocation|
-  |Value types are stored in stack|Reference types are stored in heap|
+  |`Value type`s are stored in stack|`Reference types` are stored in heap|
   |Allocation happens during compile time|Allocation happens during runtime|
   |LIFO||
   
