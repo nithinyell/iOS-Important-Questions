@@ -129,6 +129,7 @@
   |self|Self|
   |-|-|
   |Refers to the current instance of a class or struct|Refers to type|
+  
 ## Clean Architecture
 ## AppDelegate Methods
 ## OOPS-Concepts
