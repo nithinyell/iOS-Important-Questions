@@ -41,9 +41,37 @@
 ## lazy keyword
   - A lazy var is a property whose initial value is not calculated until the first time it’s called.
   - If it's never called, the var/function is never run, so it does help save processing time and memory.
+    
 ## static keyword
   - We can directly access the static properties and methods of a class with help of class itself `instead of creating the instance of the class`.
+    
 ## defer keyword
+  - The code inside the defer block will be executed just before the function returns.
+  - When you use multiple defer statements, the code within each defer block will be executed in reverse order of their appearance
+    ```
+    func exampleFunction() {
+    print("Start")
+
+    defer {
+        print("First defer")
+    }
+
+    defer {
+        print("Second defer")
+    }
+
+    print("End")
+    }
+    
+    exampleFunction()
+
+    // Output
+    Start
+    End
+    Second defer
+    First defer
+    ```
+    
 ## Stack vs Heap
 ## mutating func
 ## CoreData
@@ -57,9 +85,16 @@
 ## OOPS-Concepts
 ## POP (protocol oriented programming)
 ## self vs Self
+  |self|Self|
+  |-|-|
+  |Refers to the current instance of a class or struct|Refers to type|
 ## Clean Architecture
 
 # Misc
 ## CI-CD
 ## Push-Notifications
 ## SSH-Pinning
+  - iOS app ensures a secure connection to a specific SSH server by "pinning" or validating the server's SSH key fingerprint
+  - Avoid middle man attacks
+  - Private Key Pinning - Client will use same private key as server
+  - Certificate Pinning - Client will use the same certificate of server. Developer must keep updating the certificates depending on expiry dates
