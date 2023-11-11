@@ -81,6 +81,38 @@
     ```
     
 ## mutating func
+  - Value types, such as structs and enums, are immutable by default, meaning their properties cannot be changed within methods.
+  - `mutating` keyword is used to declare methods within a structure (value type) or an enumeration (enum) <b>that modify the instance itself</b>
+  ```
+  struct Stack<Element> {
+    private var elements = [Element]()
+
+    // Push an element onto the stack
+    mutating func push(_ element: Element) {
+        elements.append(element)
+    }
+
+    // Pop the top element from the stack
+    mutating func pop() -> Element? {
+        return elements.popLast()
+    }
+
+    // Peek at the top element without removing it
+    func peek() -> Element? {
+        return elements.last
+    }
+
+    // Check if the stack is empty
+    var isEmpty: Bool {
+        return elements.isEmpty
+    }
+
+    // Get the number of elements in the stack
+    var count: Int {
+        return elements.count
+    }
+  }
+  ```
 ## MethodSwizzling
 ## Type-Casting
 ## Access-Modifiers
