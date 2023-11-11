@@ -112,6 +112,13 @@
         return elements.count
     }
   }
+
+  // Example usage:
+  var myStack = Stack<Int>()
+  
+  myStack.push(1)
+  myStack.push(2)
+  myStack.push(3)
   ```
 ## MethodSwizzling
 ## Type-Casting
