@@ -81,27 +81,27 @@
     ```
     
 ## mutating func
-## CoreData
 ## MethodSwizzling
 ## Type-Casting
 ## Access-Modifiers
 ## Life-Cycle-of-App
   ![life cycle app](https://github.com/nithinyell/iOS-Important-Questions/assets/18254027/d95d9a41-d17c-4f4c-8665-23b22f56a7bb)
 ## Life-Cycle-of-ViewController
-## AppDelegate Methods
-## OOPS-Concepts
-## POP (protocol oriented programming)
 ## self vs Self
   |self|Self|
   |-|-|
   |Refers to the current instance of a class or struct|Refers to type|
 ## Clean Architecture
+## AppDelegate Methods
+## OOPS-Concepts
+## POP (protocol oriented programming)
 
 # Misc
-## CI-CD
-## Push-Notifications
 ## SSH-Pinning
   - iOS app ensures a secure connection to a specific SSH server by "pinning" or validating the server's SSH key fingerprint
   - Avoid middle man attacks
   - Private Key Pinning - Client will use same private key as server
   - Certificate Pinning - Client will use the same certificate of server. Developer must keep updating the certificates depending on expiry dates
+## CI-CD
+## Push-Notifications
+## CoreData
