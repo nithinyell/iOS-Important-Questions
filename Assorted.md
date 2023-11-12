@@ -122,7 +122,7 @@
   ```
 ## MethodSwizzling
 ## Type-Casting
-   ### Down Casting
+  ### Down Casting
     - Optional Down casting `as?`
     - Forced Down casting `as!`
   ### Type Checking
