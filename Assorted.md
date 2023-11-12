@@ -123,8 +123,8 @@
 ## MethodSwizzling
 ## Type-Casting
    ### Down Casting
-    - <b>Optional Down casting</b> `as?`
-    - <b>Forced Down casting</b> `as!`
+    - Optional Down casting `as?`
+    - Forced Down casting `as!`
   ### Type Checking
     - `is` used for type cehcking
   
