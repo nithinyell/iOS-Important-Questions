@@ -122,6 +122,12 @@
   ```
 ## MethodSwizzling
 ## Type-Casting
+   ### Down Casting
+    - Optional Down casting `as?`
+    - Forced Down casting `as!`
+  ### Type Checking
+    - `is` used for type cehcking
+  
 ## Life-Cycle-of-App
   ![life cycle app](https://github.com/nithinyell/iOS-Important-Questions/assets/18254027/d95d9a41-d17c-4f4c-8665-23b22f56a7bb)
 ## Life-Cycle-of-ViewController
