@@ -1,0 +1,7 @@
+- Experiences from interviews
+- Financial Client
+  - How to handle sprint
+  - Pull Request review
+  - Saving data in DBS
+  - load management for new stories
+  - 
