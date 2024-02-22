@@ -37,3 +37,6 @@ actor Counter {
     }
 }
 ```
+
+### MainActor
+- The MainActor attribute was introduced in Swift 5.5 to mark classes, structures, or actors whose members `must be accessed exclusively from the main thread`. This feature is particularly useful in SwiftUI, where the user interface should only be updated from the main thread to avoid concurrency issues.
