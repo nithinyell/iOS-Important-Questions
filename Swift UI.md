@@ -1,12 +1,12 @@
-### Swift UI Property Wrappers
+### Swift UI(2019) Property Wrappers
 - State: 
     - It is used inside `View` objects. It allows your view to respond to anychanges made to @state
-    - USe state for properties owned by the view
+    - Use state for properties owned by the view
     - This will be always a `private ` property
     - Very good for `premitive` types
 - Binding:
     - Referes to a value type owned by different view
-    - Chnages to binding will effect the remote object also, as it have both read and write access
+    - Changes to binding will effect the remote object also, as it have both read and write access
 - Bindable:
     - Used to create bindings to the properties on `@observableObjects`  
 - State Object:
@@ -20,3 +20,7 @@
 - App Storage:
     - Read and write values from userDefaults 
 - Environment Object:
+
+### Actors
+- SwiftUI provides the @StateObject and @ObservedObject property wrappers that are used with reference types, such as classes. However, these property wrappers are not sufficient for sharing state across multiple views in a way that is `safe and efficient`.
+- In Swift 5.5, Apple introduced __actors__, a new concept for writing `concurrent code`. Actors are a reference type that can encapsulate state and allow you to interact with that state safely from __multiple threads.__ Actors help you avoid common concurrency issues, such as race conditions and data races.
