@@ -24,3 +24,16 @@
 ### Actors
 - SwiftUI provides the @StateObject and @ObservedObject property wrappers that are used with reference types, such as classes. However, these property wrappers are not sufficient for sharing state across multiple views in a way that is `safe and efficient`.
 - In Swift 5.5, Apple introduced __actors__, a new concept for writing `concurrent code`. Actors are a reference type that can encapsulate state and allow you to interact with that state safely from __multiple threads.__ Actors help you avoid common concurrency issues, such as race conditions and data races.
+```
+actor Counter {
+    var value: Int = 0
+    
+    func increment() {
+        value += 1
+    }
+    
+    func decrement() {
+        value -= 1
+    }
+}
+```
