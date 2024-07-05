@@ -1,0 +1,6 @@
+- Must Read [Here](https://github.com/nithinyell/Quick-Samples)
+- Second Higest Integer
+- Limit the number of occurences in an array
+- number of times word is repeated in string
+- Find sub array that makes sum zero
+- 
