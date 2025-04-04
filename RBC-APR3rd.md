@@ -59,39 +59,39 @@ RBC April 3rd
 8. lazy vstack
 9. actors
 10. ```
-   vstack {
-   topView
-   bottomView
-   }
-   .tapGesture {
-   print(1)
-   }
-
-   topView
-   .frame
-   .padding
-   .tapGesture {
-    print(2)
-   }
-
-   bottomView
-   .padding
-   .frame
+      vstack {
+      topView
+      bottomView
+      }
+      .tapGesture {
+      print(1)
+      }
+   
+      topView
+      .frame
+      .padding
+      .tapGesture {
+       print(2)
+      }
+   
+      bottomView
+      .padding
+      .frame
    ```
 11. ```
-   This will give compilition error saying returing two diff types button vs customType
-   var cta: some View {
-   case .one:
-     return Button
-   case .two:
-     return Another type
-   }
+      This will give compilition error saying returing two diff types button vs customType
+      var cta: some View {
+      case .one:
+        return Button
+      case .two:
+        return Another type
+      }
    ```
-11. ```
-    what is #1 leading for vs frame leading
-    vstack(alignment: .leading) {
-      label1
-      label2
-    }
-    .frame(alignment: .leading)
+12. ```
+       what is #1 leading for vs frame leading
+       vstack(alignment: .leading) {
+         label1
+         label2
+       }
+       .frame(alignment: .leading)
     ```
