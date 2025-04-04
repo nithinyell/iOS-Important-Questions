@@ -55,10 +55,13 @@ RBC April 3rd
 4. How to pass view constraints to child from parent and vice versa
 5. There are 100 images - how to implement -
 6. How to pass data from parent to child
-7. Binding - if child is updating something how can parent have that value
-8. lazy vstack
-9. actors
-10. ```
+7. Life cycle of view
+8. task vs on appear
+9. how to refresh view in swiftUI
+10. Binding - if child is updating something how can parent have that value
+11. lazy vstack
+12. actors
+13. ```
       vstack {
          topView
          bottomView
