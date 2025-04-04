@@ -5,7 +5,7 @@ RBC April 3rd
 2. String vs Weak vs Unknowed
 3. Actors are value / reference - advantage 
 4. ARC
-5. Protocols - Generic Protocols ? What are advantages
+5. Protocols - Generic Protocols ? What are advantages - protocol to handle sum of int and strings
 6. GCD - NSOperations - Dispatch Queues - NSLocks - Senaphores
 7. ```
    class A {
@@ -38,8 +38,9 @@ RBC April 3rd
 6. projected value vs wrapped value
 7. How to handle a test cases that have multiple dependencies
 8. macros vs
-9. How to make a test case for the token refresher - dont want to wait real time
-10. ```
+9. swift data
+10. How to make a test case for the token refresher - dont want to wait real time
+11. ```
     func doSomething() aync -> Int
     var someInt: Int {
     how to implement doSomething here and return
