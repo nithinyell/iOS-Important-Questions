@@ -60,23 +60,23 @@ RBC April 3rd
 9. actors
 10. ```
       vstack {
-      topView
-      bottomView
+         topView
+         bottomView
       }
       .tapGesture {
-      print(1)
+         print(1)
       }
    
       topView
-      .frame
-      .padding
+         .frame
+         .padding
       .tapGesture {
-       print(2)
+          print(2)
       }
    
       bottomView
-      .padding
-      .frame
+         .padding
+         .frame
    ```
 11. ```
       This will give compilition error saying returing two diff types button vs customType
