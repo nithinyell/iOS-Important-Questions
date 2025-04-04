@@ -1,101 +1,101 @@
-RBC April 3rd
+# RBC April 3rd
 
-### Round 1 - More of Swift Questions
-1. Struct vs Class - enums structs 
-2. String vs Weak vs Unknowed
-3. Actors are value / reference - advantage 
-4. ARC
-5. Protocols - Generic Protocols ? What are advantages - protocol to handle sum of int and strings
-6. GCD - NSOperations - Dispatch Queues - NSLocks - Senaphores
-7. ```
-   class A {
-   }
+## Round 1 - More of Swift Questions
+1. **Struct vs Class - enums structs**
+2. **String vs Weak vs Unowned**
+3. **Actors**: Are they value or reference types? Discuss advantages.
+4. **Automatic Reference Counting (ARC)**
+5. **Protocols - Generic Protocols**: What are the advantages? Protocol to handle sum of int and strings.
+6. **GCD - NSOperations - Dispatch Queues - NSLocks - Semaphores**
+7. **Code Example**:
+    ```swift
+    class A {
+    }
 
-   struct B {
-   
-   }
+    struct B {
+    }
 
-   let a = a1
+    let a = a1
 
-   a ++
-   did increments
-   what will print
-   ...
-   ```
-8. Structured concurreny
-    - firing all API calls at a time
-    - fire all API calls - keep showing UI - if you have one reponse exit and show that data 
-9. Design a view that have multiple posts - have multiple image urls - how to cache image data (use set / dict for cache)
-10. Disadvantage of closures
-11.  
+    a++
+    did increments
+    what will print
+    ...
+    ```
+8. **Structured Concurrency**
+   - Firing all API calls at a time.
+   - Fire all API calls, keep showing UI. If you have one response exit and show that data.
+9. **Design a view that has multiple posts**: How to cache image data using set/dict for cache.
+10. **Disadvantage of closures**
 
-### Round 2 - More Swift 
-1. Never vs Void
-2. type eraser
-3. custom property wrappers
-4. how to convert async func to closure abd vice versa
-5. how to implement enum that can be extended in outside of module - implement struct { static let ... }
-6. projected value vs wrapped value
-7. How to handle a test cases that have multiple dependencies
-8. macros vs
-9. swift data
-10. How to make a test case for the token refresher - dont want to wait real time
-11. ```
-    func doSomething() aync -> Int
+## Round 2 - More Swift
+1. **Never vs Void**
+2. **Type Eraser**
+3. **Custom Property Wrappers**
+4. **Converting async function to closure and vice versa**
+5. **How to implement enum that can be extended outside of module** - Implement struct with static let.
+6. **Projected Value vs Wrapped Value**
+7. **Handling Test Cases with Multiple Dependencies**
+8. **Macros vs Swift Data**
+9. **Test Case for Token Refresher**: How to avoid waiting in real time.
+10. **Code Example**:
+    ```swift
+    func doSomething() async -> Int
     var someInt: Int {
-    how to implement doSomething here and return
-      - can we make use of dispatch queues
-      - will cause dead locks
+        // How to implement doSomething here and return
+        // Can we make use of dispatch queues
+        // Will it cause deadlocks
     }
     ```
 
-### Round 3 - Pure Swift UI
-1. Explain all property wrappers
-2. Why do we use environmental variable we can maually pass deps in inits
-3. parent to child views {how to keep child view intact even if parent view refreshes}
-4. How to pass view constraints to child from parent and vice versa
-5. There are 100 images - how to implement -
-6. How to pass data from parent to child
-7. Life cycle of view
-8. task vs on appear
-9. how to refresh view in swiftUI
-10. Binding - if child is updating something how can parent have that value
-11. lazy vstack
-12. actors
-13. ```
-      vstack {
-         topView
-         bottomView
-      }
-      .tapGesture {
-         print(1)
-      }
-   
-      topView
-         .frame
-         .padding
-      .tapGesture {
-          print(2)
-      }
-   
-      bottomView
-         .padding
-         .frame
-   ```
-11. ```
-      This will give compilition error saying returing two diff types button vs customType
-      var cta: some View {
-      case .one:
-        return Button
-      case .two:
-        return Another type
-      }
-   ```
-12. ```
-       what is #1 leading for vs frame leading
-       vstack(alignment: .leading) {
-         label1
-         label2
-       }
-       .frame(alignment: .leading)
+## Round 3 - Pure SwiftUI
+1. **Explain all property wrappers**
+2. **Why use environmental variables** when we can manually pass dependencies in inits.
+3. **Parent to Child Views**: How to keep child view intact even if parent view refreshes.
+4. **Passing view constraints to child from parent and vice versa**
+5. **Handling 100 Images**: Implementation strategy.
+6. **Data Passing from Parent to Child**
+7. **Life Cycle of View**
+8. **Task vs OnAppear**
+9. **How to Refresh View in SwiftUI**
+10. **Binding**: If child is updating something, how can parent have that value?
+11. **Lazy VStack**
+12. **Actors**
+13. **Code Example with TapGesture**:
+    ```swift
+    VStack {
+        topView
+        bottomView
+    }
+    .tapGesture {
+        print(1)
+    }
+
+    topView
+        .frame
+        .padding
+    .tapGesture {
+        print(2)
+    }
+
+    bottomView
+        .padding
+        .frame
+    ```
+14. **Compilition Error**: Returning two different types (Button vs CustomType).
+    ```swift
+    var cta: some View {
+        case .one:
+            return Button
+        case .two:
+            return Another type
+    }
+    ```
+15. **Alignment vs Frame Leading**:
+    ```swift
+    VStack(alignment: .leading) {
+        label1
+        label2
+    }
+    .frame(alignment: .leading)
     ```
