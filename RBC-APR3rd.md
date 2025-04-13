@@ -35,10 +35,11 @@
 4. **Converting async function to closure and vice versa**
 5. **How to implement enum that can be extended outside of module** - Implement struct with static let.
 6. **Projected Value vs Wrapped Value**
-7. **Handling Test Cases with Multiple Dependencies**
-8. **Macros vs Swift Data**
-9. **Test Case for Token Refresher**: How to avoid waiting in real time.
-10. **Code Example**:
+7. **_ vs self**
+8. **Handling Test Cases with Multiple Dependencies**
+9. **Macros vs Swift Data**
+10. **Test Case for Token Refresher**: How to avoid waiting in real time.
+11. **Code Example**:
     ```swift
     func doSomething() async -> Int
     var someInt: Int {
