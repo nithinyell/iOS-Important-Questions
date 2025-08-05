@@ -20,5 +20,5 @@
 - Improved **app accessibility** and implemented **localization** for multilingual support.  
 - Authored **release documentation** and supported **production bug triage**.  
 - Familiar with **Agile** and **Kanban** methodologies; actively participate in sprint ceremonies.
-- Happy to be a** onboarding buddy** to bring the new team members upto the speed. **Mentored Jr devs.**
+- Happy to be a **onboarding buddy** to bring the new team members upto the speed. **Mentored Jr devs.**
 - Since last one year, Im **learning Android** and addressing bugs and ship medium sizes features.
