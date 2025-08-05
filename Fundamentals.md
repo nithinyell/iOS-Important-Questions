@@ -302,7 +302,38 @@ DispatchQueue.global(qos: .background).async {
 * Sync: The thread that initiated that operation will wait for the task to finish before continuing.
 * Async: thread will not wait for the completion.
 
-## Design Patterns TO DO - creational - structural - behavior - decorator - observer
+## Design Patterns
+
+### 📚 iOS Design Patterns Cheat Sheet
+**✅ Tip to Remember:**
+- **Creational** = *How to create objects*
+- **Structural** = *How to organize relationships*
+- **Behavioral** = *How objects communicate and behave*
+
+| **Category**     | **Pattern**         | **Purpose**                                                | **iOS Examples**                               |
+|------------------|---------------------|-------------------------------------------------------------|-------------------------------------------------|
+| 🏭 **Creational** | **Singleton**        | Ensure a class has only one instance                        | `UserDefaults.standard`, `URLSession.shared`    |
+|                  | **Factory**          | Create objects without exposing creation logic              | Custom View/Model factories                     |
+|                  | **Builder**          | Construct complex objects step-by-step                      | Building `URLRequest` or JSON payloads          |
+|                  | **Abstract Factory** | Create related families of objects                          | Theming system, app-wide design components      |
+|                  | **Prototype**        | Clone objects                                               | Cloning model objects                           |
+| 🏗️ **Structural** | **MVC**              | Separate concerns (Model, View, Controller)                 | UIKit apps                                      |
+|                  | **MVVM**             | Separate business logic from UI                             | SwiftUI with Combine                            |
+|                  | **MVVM-C**           | Add navigation management via Coordinator                   | Modular UIKit apps                              |
+|                  | **VIPER**            | Highly decoupled modular architecture                       | Banking apps                                    |
+|                  | **Decorator**        | Add responsibilities to objects dynamically                 | Extending `UIView` with extra features          |
+|                  | **Adapter**          | Make incompatible interfaces work together                  | Bridging legacy Obj-C APIs in Swift             |
+|                  | **Facade**           | Simplify complex subsystems                                 | Networking or Analytics wrapper class           |
+|                  | **Composite**        | Compose tree structures                                     | `UIView` hierarchy                              |
+| 🔁 **Behavioral** | **Observer**         | Notify objects on state change                              | `NotificationCenter`, Combine, KVO              |
+|                  | **Delegate**         | One-to-one communication pattern                            | `UITableViewDelegate`, `UITextFieldDelegate`    |
+|                  | **Strategy**         | Swap algorithms at runtime                                  | Dynamic layouts, sorting strategies             |
+|                  | **Command**          | Encapsulate request as an object                            | Undo/redo, button actions                       |
+|                  | **State**            | Change behavior based on internal state                     | App states: onboarding, logged-in, error        |
+|                  | **Mediator**         | Centralize communication between components                 | ViewModel coordinating multiple services        |
+|                  | **Chain of Resp.**   | Pass request through a chain of handlers                    | `UIResponder` chain, middleware                 |
+
+---
 
 ### MVC
 
