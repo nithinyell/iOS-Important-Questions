@@ -5,7 +5,8 @@
 - Proficient in **Objective-C**, **Swift**, **Java**, **Kotlin**, and **JavaScript**.  
 - Applied architectural patterns like **MVVM**, **MVVM-C**, and **The Composable Architecture (TCA)**, while adhering to **SOLID principles** and **clean code practices**.  
 - Exposed to **server driven UI** enviroment
-- Built and maintained a flexible **design system** supporting **easy theming and UI consistency**.  
+- Built and maintained a flexible **design system** supporting **easy theming and UI consistency**.
+- Developed and maintained, **common packages that can be sharable** with in the team for different projects. Example - Design System, Network & Analytics etc
 - Improved application performance through **multithreading** (GCD, NSOperation) and by adopting modern APIs like **async/await**.  
 - Experience working with **Core Data** and **SQL** databases in Swift projects.  
 - Wrote meaningful **unit**, **UI**, and **integration tests** to validate business logic.  
