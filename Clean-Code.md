@@ -1,4 +1,4 @@
-# 🧼 Clean Code Practices in iOS
+# Clean Code Practices
 
 Writing clean code ensures your app is **readable**, **testable**, **scalable**, and **maintainable**. Clean code applies at both the **code level** (functions, variables) and **architectural level** (layers, responsibilities).
 
