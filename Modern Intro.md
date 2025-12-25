@@ -1,25 +1,48 @@
-## Professional Summary
+# Interview Introduction
 
-- Currently working as a **Senior iOS Developer**, with experience across multiple domains including **telecom**, **enterprise**, and **banking applications**.  
-- Strong understanding of the **full SDLC** — from gathering requirements to development, testing, and shipping apps to the App Store.  
-- Proficient in **Objective-C**, **Swift**, **Java**, **Kotlin**, and **JavaScript**.  
-- Applied architectural patterns like **MVVM**, **MVVM-C**, and **The Composable Architecture (TCA)**, while adhering to **SOLID principles** and **clean code practices**.  
-- Exposed to **server driven UI** enviroment
-- Built and maintained a flexible **design system** supporting **easy theming and UI consistency**.
-- Developed and maintained, **common packages that can be sharable** with in the team for different projects. Example - Design System, Network & Analytics etc
-- Improved application performance through **multithreading** (GCD, NSOperation) and by adopting modern APIs like **async/await** & **combine**.  
-- Experience working with **Core Data** and **SQL** databases in Swift projects.  
-- Wrote meaningful **unit**, **UI**, and **integration tests** to validate business logic.  
-- Hands-on with setting up and maintaining **CI/CD pipelines** (Azure, CircleCI).  
-- Experienced in **biweekly App Store releases** and managing deployment processes.
+## 🎯 Quick Version (for "Tell me about yourself")
 
-## Additional Contributions
+*"I'm a Senior iOS Developer with 8 years of experience building scalable applications across telecom, enterprise, and banking domains. I've shipped apps end-to-end—from requirements to App Store—using Swift, Objective-C, and modern patterns like MVVM and TCA.*
 
-- Implemented **end-to-end testing** using **Maestro**.  
-- Regularly updated and verified **third-party dependencies** to ensure compatibility.  
-- Integrated **A/B testing**, **telemetry logging**, and **crash reporting** tools (e.g., Crashlytics).  
-- Improved **app accessibility** and implemented **localization** for multilingual support.  
-- Authored **release documentation** and supported **production bug triage**.  
-- Familiar with **Agile** and **Kanban** methodologies; actively participate in sprint ceremonies.
-- Happy to be a **onboarding buddy** to bring the new team members upto the speed. **Mentored Jr devs.**
-- Since last one year, Im **learning Android** and addressing bugs and ship medium sizes features.
+*I'm passionate about clean architecture and code quality. I've built reusable design systems, implemented CI/CD pipelines, and led platform initiatives like E2E testing with Maestro. Beyond iOS, I've worked on macOS apps and am currently expanding into Android.*
+
+*I love mentoring junior developers and believe in writing testable, maintainable code that scales with the team."*
+
+---
+
+## 📋 Detailed Professional Summary (Reference)
+
+### Core Experience
+- **Senior iOS Developer** with **8 years of experience** across **telecom**, **enterprise**, and **banking applications**
+- End-to-end **SDLC expertise** — requirements to App Store deployment
+- **Languages**: Swift, Objective-C, Java, Kotlin, JavaScript
+- **Platforms**: iOS, macOS
+- **Architectures**: MVVM, MVVM-C, The Composable Architecture (TCA)
+- **Principles**: SOLID, Clean Code, Protocol-Oriented Programming
+
+### Technical Skills
+- **Apple Frameworks**: UIKit, SwiftUI, MapKit, Core Data, Core Location, WebKit, Combine
+- **Third-party**: Alamofire (networking), Kingfisher (image caching)
+- **Libraries**: Built shareable libraries using XCFramework and Swift Package Manager
+- **Performance**: GCD, NSOperations, async/await for multithreading
+- **Testing**: Unit, UI, and integration tests using XCTest
+- **CI/CD**: Azure, CircleCI pipelines
+- **Release Management**: Biweekly App Store releases
+
+### Platform Team Contributions
+- Dependency management and regular library updates
+- Telemetry logging for app usage analytics
+- A/B testing implementation (Firebase)
+- Crash log analysis with de-symbolicated files
+- E2E testing (Maestro, Appium)
+- Developer account and certificate management
+- Accessibility and localization improvements
+- Release documentation and production support
+
+### Leadership & Collaboration
+- Design system development for theming and UI consistency
+- Built shareable packages (Design System, Network, Analytics)
+- Mentored junior developers and served as onboarding buddy
+- Source control: GitHub, GitLab
+- Agile/Kanban methodologies
+- Currently learning Android development

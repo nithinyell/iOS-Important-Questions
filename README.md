@@ -6,8 +6,7 @@ A comprehensive collection of iOS development topics, concepts, and best practic
 
 ### Core Topics
 
-- **[Introduction](Introduction.md)** - Professional summary and experience overview
-- **[Modern Intro](Modern%20Intro.md)** - Updated professional profile highlighting modern iOS development skills
+- **[Modern Intro](Modern%20Intro.md)** - Professional summary with quick interview introduction and detailed reference
 - **[Fundamentals](Fundamentals.md)** - Essential iOS concepts including delegates, protocols, optionals, memory management, multithreading, and design patterns
 - **[Advanced](Advanced.md)** - Advanced topics including Dependency Injection, SOLID principles, and protocol composition
 - **[Clean Code](Clean-Code.md)** - Code-level and architectural best practices for writing maintainable, testable, and scalable iOS applications
