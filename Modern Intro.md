@@ -2,7 +2,7 @@
 
 ## 🎯 Quick Version (for "Tell me about yourself")
 
-*"I'm a Senior iOS Developer with 8 years of experience building scalable applications across telecom, enterprise, and banking domains. I've shipped apps end-to-end—from requirements to App Store—using Swift, Objective-C, and modern patterns like MVVM and TCA.*
+*"I'm a Senior iOS Developer with 10+ years of experience building scalable applications across telecom, enterprise, and banking domains. I've shipped apps end-to-end—from requirements to App Store—using Swift, Objective-C, and modern patterns like MVVM and TCA.*
 
 *I'm passionate about clean architecture and code quality. I've built reusable design systems, implemented CI/CD pipelines, and led platform initiatives like E2E testing with Maestro. Beyond iOS, I've worked on macOS apps and am currently expanding into Android.*
 
@@ -13,7 +13,7 @@
 ## 📋 Detailed Professional Summary (Reference)
 
 ### Core Experience
-- **Senior iOS Developer** with **8 years of experience** across **telecom**, **enterprise**, and **banking applications**
+- **Senior iOS Developer** with **10+ years of experience** (since July 2015) across **telecom**, **enterprise**, and **banking applications**
 - End-to-end **SDLC expertise** — requirements to App Store deployment
 - **Languages**: Swift, Objective-C, Java, Kotlin, JavaScript
 - **Platforms**: iOS, macOS
