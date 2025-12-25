@@ -1,10 +1,10 @@
 Hello and Thanks for considering me for the position
-- I am working as a iOS app developer since 8 years building scalable, maintainable and testable applications. I have end to end experience in building applications right from gathering requirements, developing, testing and shipping apps to App Store.
+- I am working as an iOS app developer since 8 years building scalable, maintainable and testable applications. I have end to end experience in building applications right from gathering requirements, developing, testing and shipping apps to App Store.
 - I’m hands on using Objective - C, Swift and using Swift UI for declarative programming since last one year.
-- I have developer applications not only for iOS but also Mac OS.
-- Also built sharable libraries using XCFramework and Swift Packages manager.
-- I am hands on using apple standard libraries like UIKit, MapKit, Core Data, Core Location & WebKit. I am hands on integrating and using third party libraries like Alamofire for networking, Kingfisher for Async image loading and caching.
-- Took best advantage out of GCD and NSOps to manage Async and concurrent code and enhance the app over all performance.
+- I have developed applications not only for iOS but also macOS.
+- Also built shareable libraries using XCFramework and Swift Packages manager.
+- I am hands on using Apple standard libraries like UIKit, MapKit, Core Data, Core Location & WebKit. I am hands on integrating and using third party libraries like Alamofire for networking, Kingfisher for Async image loading and caching.
+- Took best advantage out of GCD and NSOperations to manage async and concurrent code and enhance the app overall performance.
 - Apart from development experience, I am good in writing test cases for Unit and UI using XCTestFrameworks
 
 - I have also worked in Platform team
