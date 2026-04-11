@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swift MVVM + Coordinator</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --border: #252a35;
+    --accent: #f97316;
+    --accent2: #3b82f6;
+    --accent3: #22c55e;
+    --accent4: #a855f7;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --code-bg: #0a0c10;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    padding: 32px 20px 60px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 40px;
+  }
+
+  /* ── DIAGRAM ── */
+  .diagram {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px 24px;
+    margin-bottom: 40px;
+  }
+
+  .diagram h2 {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+
+  .arch {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+  }
+
+  .layer {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .box {
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-width: 160px;
+    text-align: center;
+    position: relative;
+  }
+
+  .box .label {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    opacity: 0.6;
+  }
+
+  .box .name {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .box .desc {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+    opacity: 0.55;
+  }
+
+  .box-coordinator { background: rgba(249,115,22,0.12); border: 1.5px solid var(--accent); color: var(--accent); }
+  .box-view        { background: rgba(59,130,246,0.12);  border: 1.5px solid var(--accent2); color: var(--accent2); }
+  .box-vm          { background: rgba(34,197,94,0.12);   border: 1.5px solid var(--accent3); color: var(--accent3); }
+  .box-model       { background: rgba(168,85,247,0.12);  border: 1.5px solid var(--accent4); color: var(--accent4); }
+  .box-service     { background: rgba(100,116,139,0.1);  border: 1.5px dashed var(--muted);  color: var(--muted); }
+
+  .arrow {
+    width: 2px;
+    height: 28px;
+    background: var(--border);
+    position: relative;
+    margin: 0 auto;
+  }
+  .arrow::after {
+    content: '▼';
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    color: var(--muted);
+  }
+
+  .arrow-label {
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    text-align: center;
+    margin: 2px 0;
+  }
+
+  .h-arrows {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin: 4px 0;
+    font-size: 0.65rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+  }
+
+  /* ── TABS ── */
+  .tabs { display: flex; gap: 6px; margin-bottom: 0; flex-wrap: wrap; }
+
+  .tab {
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    background: var(--surface);
+    color: var(--muted);
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { background: var(--code-bg); color: var(--accent); border-color: var(--accent); }
+
+  .code-panel {
+    display: none;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 0 8px 8px 8px;
+    padding: 24px;
+    overflow-x: auto;
+  }
+  .code-panel.active { display: block; }
+
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    white-space: pre;
+  }
+
+  /* syntax colors */
+  .kw  { color: #f97316; }   /* keywords */
+  .ty  { color: #60a5fa; }   /* types */
+  .fn  { color: #4ade80; }   /* functions */
+  .st  { color: #f1fa8c; }   /* strings */
+  .cm  { color: #475569; font-style: italic; } /* comments */
+  .pr  { color: #c084fc; }   /* properties */
+
+  .file-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    background: rgba(249,115,22,0.15);
+    color: var(--accent);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-bottom: 16px;
+  }
+
+  .section-note {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--accent);
+    padding: 10px 14px;
+    border-radius: 0 6px 6px 0;
+    margin-top: 24px;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    flex-wrap: wrap;
+    padding: 16px 0 0;
+  }
+  .flow-chip {
+    padding: 4px 10px;
+    border-radius: 99px;
+    border: 1px solid;
+    font-size: 0.68rem;
+    white-space: nowrap;
+  }
+  .chip-o { border-color: var(--accent); color: var(--accent); }
+  .chip-v { border-color: var(--accent2); color: var(--accent2); }
+  .chip-vm { border-color: var(--accent3); color: var(--accent3); }
+  .chip-m { border-color: var(--accent4); color: var(--accent4); }
+  .arrow-r { color: var(--border); }
+</style>
+</head>
+<body>
+
+<h1>MVVM + Coordinator</h1>
+<p class="subtitle">// swift architecture pattern — simple reference</p>
+
+<!-- DIAGRAM -->
+<div class="diagram">
+  <h2>// Architecture Diagram</h2>
+  <div class="arch">
+
+    <!-- Coordinator -->
+    <div class="layer">
+      <div class="box box-coordinator">
+        <div class="label">navigation</div>
+        <div class="name">Coordinator</div>
+        <div class="desc">owns UINavigationController<br>creates Views + ViewModels</div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+    <div class="arrow-label">instantiates &amp; presents</div>
+
+    <!-- View -->
+    <div class="layer">
+      <div class="box box-view">
+        <div class="label">ui layer</div>
+        <div class="name">View / ViewController</div>
+        <div class="desc">UIKit / SwiftUI<br>binds to ViewModel</div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+    <div class="arrow-label">observes / calls actions</div>
+
+    <!-- ViewModel -->
+    <div class="layer">
+      <div class="box box-vm">
+        <div class="label">logic layer</div>
+        <div class="name">ViewModel</div>
+        <div class="desc">@Published state<br>delegates nav → Coordinator</div>
+      </div>
+    </div>
+
+    <div class="arrow"></div>
+    <div class="arrow-label">fetches data</div>
+
+    <!-- Model + Service side by side -->
+    <div class="layer">
+      <div class="box box-model">
+        <div class="label">data</div>
+        <div class="name">Model</div>
+        <div class="desc">plain Swift struct<br>Codable</div>
+      </div>
+      <div class="box box-service">
+        <div class="label">networking</div>
+        <div class="name">Service</div>
+        <div class="desc">URLSession / API<br>injected via protocol</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- User action flow -->
+  <div class="flow-row">
+    <span style="color:var(--muted)">User tap →</span>
+    <span class="flow-chip chip-v">View</span>
+    <span class="arrow-r">──▶</span>
+    <span class="flow-chip chip-vm">ViewModel</span>
+    <span class="arrow-r">──▶</span>
+    <span class="flow-chip chip-o">Coordinator</span>
+    <span class="arrow-r">──▶</span>
+    <span class="flow-chip chip-v">New Screen</span>
+  </div>
+</div>
+
+<!-- CODE TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="show('coordinator')">Coordinator</div>
+  <div class="tab" onclick="show('viewmodel')">ViewModel</div>
+  <div class="tab" onclick="show('view')">ViewController</div>
+  <div class="tab" onclick="show('model')">Model + Service</div>
+</div>
+
+<!-- Coordinator -->
+<div id="tab-coordinator" class="code-panel active">
+  <div class="file-badge">AppCoordinator.swift</div>
+<pre><span class="cm">// 1. Protocol — every coordinator conforms to this</span>
+<span class="kw">protocol</span> <span class="ty">Coordinator</span>: <span class="ty">AnyObject</span> {
+    <span class="kw">var</span> <span class="pr">navigationController</span>: <span class="ty">UINavigationController</span> { <span class="kw">get set</span> }
+    <span class="kw">func</span> <span class="fn">start</span>()
+}
+
+<span class="cm">// 2. AppCoordinator — root, owns the nav stack</span>
+<span class="kw">final class</span> <span class="ty">AppCoordinator</span>: <span class="ty">Coordinator</span> {
+
+    <span class="kw">var</span> <span class="pr">navigationController</span>: <span class="ty">UINavigationController</span>
+
+    <span class="kw">init</span>(<span class="pr">navigationController</span>: <span class="ty">UINavigationController</span>) {
+        <span class="kw">self</span>.<span class="pr">navigationController</span> = navigationController
+    }
+
+    <span class="kw">func</span> <span class="fn">start</span>() {
+        <span class="fn">showHome</span>()
+    }
+
+    <span class="kw">func</span> <span class="fn">showHome</span>() {
+        <span class="kw">let</span> vm  = <span class="ty">HomeViewModel</span>(<span class="pr">coordinator</span>: <span class="kw">self</span>)
+        <span class="kw">let</span> vc  = <span class="ty">HomeViewController</span>(<span class="pr">viewModel</span>: vm)
+        <span class="pr">navigationController</span>.<span class="fn">pushViewController</span>(vc, <span class="pr">animated</span>: <span class="kw">false</span>)
+    }
+
+    <span class="kw">func</span> <span class="fn">showDetail</span>(<span class="pr">item</span>: <span class="ty">Item</span>) {
+        <span class="kw">let</span> vm  = <span class="ty">DetailViewModel</span>(<span class="pr">item</span>: item)
+        <span class="kw">let</span> vc  = <span class="ty">DetailViewController</span>(<span class="pr">viewModel</span>: vm)
+        <span class="pr">navigationController</span>.<span class="fn">pushViewController</span>(vc, <span class="pr">animated</span>: <span class="kw">true</span>)
+    }
+}
+
+<span class="cm">// 3. SceneDelegate wires everything up</span>
+<span class="kw">class</span> <span class="ty">SceneDelegate</span>: <span class="ty">UIResponder</span>, <span class="ty">UIWindowSceneDelegate</span> {
+
+    <span class="kw">var</span> <span class="pr">window</span>: <span class="ty">UIWindow</span>?
+    <span class="kw">var</span> <span class="pr">coordinator</span>: <span class="ty">AppCoordinator</span>?
+
+    <span class="kw">func</span> <span class="fn">scene</span>(<span class="pr">_</span> scene: <span class="ty">UIScene</span>,
+               <span class="pr">willConnectTo</span> session: <span class="ty">UISceneSession</span>,
+               <span class="pr">options</span>: <span class="ty">UIScene.ConnectionOptions</span>) {
+
+        <span class="kw">guard let</span> windowScene = scene <span class="kw">as?</span> <span class="ty">UIWindowScene</span> <span class="kw">else</span> { <span class="kw">return</span> }
+        <span class="kw">let</span> nav = <span class="ty">UINavigationController</span>()
+        coordinator = <span class="ty">AppCoordinator</span>(<span class="pr">navigationController</span>: nav)
+        coordinator?.<span class="fn">start</span>()
+
+        window = <span class="ty">UIWindow</span>(<span class="pr">windowScene</span>: windowScene)
+        window?.<span class="pr">rootViewController</span> = nav
+        window?.<span class="fn">makeKeyAndVisible</span>()
+    }
+}</pre>
+  <div class="section-note">
+    💡 Key rule: ViewControllers never call <code>navigationController.push</code> themselves — only the Coordinator does.
+  </div>
+</div>
+
+<!-- ViewModel -->
+<div id="tab-viewmodel" class="code-panel">
+  <div class="file-badge">HomeViewModel.swift</div>
+<pre><span class="kw">import</span> <span class="ty">Combine</span>
+
+<span class="kw">final class</span> <span class="ty">HomeViewModel</span>: <span class="ty">ObservableObject</span> {
+
+    <span class="cm">// — Outputs (View observes these)</span>
+    <span class="kw">@Published var</span> <span class="pr">items</span>: [<span class="ty">Item</span>] = []
+    <span class="kw">@Published var</span> <span class="pr">isLoading</span>: <span class="ty">Bool</span> = <span class="kw">false</span>
+    <span class="kw">@Published var</span> <span class="pr">errorMessage</span>: <span class="ty">String</span>? = <span class="kw">nil</span>
+
+    <span class="cm">// — Dependencies</span>
+    <span class="kw">private weak var</span> <span class="pr">coordinator</span>: <span class="ty">AppCoordinator</span>?
+    <span class="kw">private let</span>      <span class="pr">service</span>: <span class="ty">ItemServiceProtocol</span>
+    <span class="kw">private var</span>      <span class="pr">cancellables</span> = <span class="ty">Set</span>&lt;<span class="ty">AnyCancellable</span>&gt;()
+
+    <span class="kw">init</span>(<span class="pr">coordinator</span>: <span class="ty">AppCoordinator</span>,
+         <span class="pr">service</span>: <span class="ty">ItemServiceProtocol</span> = <span class="ty">ItemService</span>()) {
+        <span class="kw">self</span>.<span class="pr">coordinator</span> = coordinator
+        <span class="kw">self</span>.<span class="pr">service</span>     = service
+    }
+
+    <span class="cm">// — Inputs (View calls these)</span>
+
+    <span class="kw">func</span> <span class="fn">viewDidLoad</span>() {
+        <span class="fn">fetchItems</span>()
+    }
+
+    <span class="kw">func</span> <span class="fn">didSelectItem</span>(<span class="pr">_</span> item: <span class="ty">Item</span>) {
+        coordinator?.<span class="fn">showDetail</span>(<span class="pr">item</span>: item)   <span class="cm">// nav lives in coordinator</span>
+    }
+
+    <span class="cm">// — Private</span>
+
+    <span class="kw">private func</span> <span class="fn">fetchItems</span>() {
+        <span class="pr">isLoading</span> = <span class="kw">true</span>
+        service
+            .<span class="fn">fetchItems</span>()
+            .<span class="fn">receive</span>(<span class="pr">on</span>: <span class="ty">DispatchQueue</span>.main)
+            .<span class="fn">sink</span>(
+                <span class="pr">receiveCompletion</span>: { [<span class="kw">weak self</span>] completion <span class="kw">in</span>
+                    <span class="kw">self</span>?.<span class="pr">isLoading</span> = <span class="kw">false</span>
+                    <span class="kw">if case</span> .<span class="fn">failure</span>(<span class="kw">let</span> err) = completion {
+                        <span class="kw">self</span>?.<span class="pr">errorMessage</span> = err.<span class="pr">localizedDescription</span>
+                    }
+                },
+                <span class="pr">receiveValue</span>: { [<span class="kw">weak self</span>] items <span class="kw">in</span>
+                    <span class="kw">self</span>?.<span class="pr">items</span> = items
+                }
+            )
+            .<span class="fn">store</span>(<span class="pr">in</span>: &amp;<span class="pr">cancellables</span>)
+    }
+}</pre>
+  <div class="section-note">
+    💡 ViewModel knows nothing about UIKit. It holds state and delegates navigation decisions to the Coordinator.
+  </div>
+</div>
+
+<!-- ViewController -->
+<div id="tab-view" class="code-panel">
+  <div class="file-badge">HomeViewController.swift</div>
+<pre><span class="kw">import</span> <span class="ty">UIKit</span>
+<span class="kw">import</span> <span class="ty">Combine</span>
+
+<span class="kw">final class</span> <span class="ty">HomeViewController</span>: <span class="ty">UIViewController</span> {
+
+    <span class="cm">// — UI</span>
+    <span class="kw">private let</span> <span class="pr">tableView</span> = <span class="ty">UITableView</span>()
+    <span class="kw">private let</span> <span class="pr">spinner</span>   = <span class="ty">UIActivityIndicatorView</span>(<span class="pr">style</span>: .<span class="pr">large</span>)
+
+    <span class="cm">// — ViewModel + bindings</span>
+    <span class="kw">private let</span> <span class="pr">viewModel</span>: <span class="ty">HomeViewModel</span>
+    <span class="kw">private var</span> <span class="pr">cancellables</span> = <span class="ty">Set</span>&lt;<span class="ty">AnyCancellable</span>&gt;()
+
+    <span class="kw">init</span>(<span class="pr">viewModel</span>: <span class="ty">HomeViewModel</span>) {
+        <span class="kw">self</span>.<span class="pr">viewModel</span> = viewModel
+        <span class="kw">super</span>.<span class="fn">init</span>(<span class="pr">nibName</span>: <span class="kw">nil</span>, <span class="pr">bundle</span>: <span class="kw">nil</span>)
+    }
+
+    <span class="kw">required init?</span>(<span class="pr">coder</span>: <span class="ty">NSCoder</span>) { <span class="fn">fatalError</span>() }
+
+    <span class="kw">override func</span> <span class="fn">viewDidLoad</span>() {
+        <span class="kw">super</span>.<span class="fn">viewDidLoad</span>()
+        <span class="fn">setupUI</span>()
+        <span class="fn">bindViewModel</span>()
+        viewModel.<span class="fn">viewDidLoad</span>()          <span class="cm">// kick off data load</span>
+    }
+
+    <span class="kw">private func</span> <span class="fn">setupUI</span>() {
+        title = <span class="st">"Home"</span>
+        view.<span class="fn">addSubview</span>(<span class="pr">tableView</span>)
+        view.<span class="fn">addSubview</span>(<span class="pr">spinner</span>)
+        tableView.<span class="pr">frame</span> = view.<span class="pr">bounds</span>
+        tableView.<span class="pr">dataSource</span> = <span class="kw">self</span>
+        tableView.<span class="pr">delegate</span>   = <span class="kw">self</span>
+        tableView.<span class="fn">register</span>(<span class="ty">UITableViewCell</span>.<span class="kw">self</span>,
+                            <span class="pr">forCellReuseIdentifier</span>: <span class="st">"Cell"</span>)
+    }
+
+    <span class="kw">private func</span> <span class="fn">bindViewModel</span>() {
+        viewModel.<span class="pr">$items</span>
+            .<span class="fn">receive</span>(<span class="pr">on</span>: <span class="ty">DispatchQueue</span>.main)
+            .<span class="fn">sink</span> { [<span class="kw">weak self</span>] <span class="pr">_</span> <span class="kw">in</span>
+                <span class="kw">self</span>?.<span class="pr">tableView</span>.<span class="fn">reloadData</span>()
+            }
+            .<span class="fn">store</span>(<span class="pr">in</span>: &amp;<span class="pr">cancellables</span>)
+
+        viewModel.<span class="pr">$isLoading</span>
+            .<span class="fn">receive</span>(<span class="pr">on</span>: <span class="ty">DispatchQueue</span>.main)
+            .<span class="fn">sink</span> { [<span class="kw">weak self</span>] loading <span class="kw">in</span>
+                loading ? <span class="kw">self</span>?.<span class="pr">spinner</span>.<span class="fn">startAnimating</span>()
+                        : <span class="kw">self</span>?.<span class="pr">spinner</span>.<span class="fn">stopAnimating</span>()
+            }
+            .<span class="fn">store</span>(<span class="pr">in</span>: &amp;<span class="pr">cancellables</span>)
+    }
+}
+
+<span class="cm">// — TableView DataSource / Delegate</span>
+<span class="kw">extension</span> <span class="ty">HomeViewController</span>: <span class="ty">UITableViewDataSource</span>, <span class="ty">UITableViewDelegate</span> {
+
+    <span class="kw">func</span> <span class="fn">tableView</span>(<span class="pr">_</span> tv: <span class="ty">UITableView</span>,
+                   <span class="pr">numberOfRowsInSection</span> section: <span class="ty">Int</span>) -> <span class="ty">Int</span> {
+        viewModel.<span class="pr">items</span>.<span class="pr">count</span>
+    }
+
+    <span class="kw">func</span> <span class="fn">tableView</span>(<span class="pr">_</span> tv: <span class="ty">UITableView</span>,
+                   <span class="pr">cellForRowAt</span> indexPath: <span class="ty">IndexPath</span>) -> <span class="ty">UITableViewCell</span> {
+        <span class="kw">let</span> cell = tv.<span class="fn">dequeueReusableCell</span>(<span class="pr">withIdentifier</span>: <span class="st">"Cell"</span>, <span class="pr">for</span>: indexPath)
+        cell.<span class="pr">textLabel</span>?.<span class="pr">text</span> = viewModel.<span class="pr">items</span>[indexPath.<span class="pr">row</span>].<span class="pr">title</span>
+        <span class="kw">return</span> cell
+    }
+
+    <span class="kw">func</span> <span class="fn">tableView</span>(<span class="pr">_</span> tv: <span class="ty">UITableView</span>,
+                   <span class="pr">didSelectRowAt</span> indexPath: <span class="ty">IndexPath</span>) {
+        <span class="kw">let</span> item = viewModel.<span class="pr">items</span>[indexPath.<span class="pr">row</span>]
+        viewModel.<span class="fn">didSelectItem</span>(item)       <span class="cm">// VC never pushes directly</span>
+    }
+}</pre>
+  <div class="section-note">
+    💡 The VC only knows about its ViewModel. It never references the Coordinator or any other screen.
+  </div>
+</div>
+
+<!-- Model + Service -->
+<div id="tab-model" class="code-panel">
+  <div class="file-badge">Item.swift + ItemService.swift</div>
+<pre><span class="cm">// ── Model ───────────────────────────────────────────</span>
+<span class="kw">struct</span> <span class="ty">Item</span>: <span class="ty">Codable</span>, <span class="ty">Identifiable</span> {
+    <span class="kw">let</span> <span class="pr">id</span>:    <span class="ty">Int</span>
+    <span class="kw">let</span> <span class="pr">title</span>: <span class="ty">String</span>
+    <span class="kw">let</span> <span class="pr">body</span>:  <span class="ty">String</span>
+}
+
+<span class="cm">// ── Service Protocol (enables mocking in tests) ──────</span>
+<span class="kw">protocol</span> <span class="ty">ItemServiceProtocol</span> {
+    <span class="kw">func</span> <span class="fn">fetchItems</span>() -> <span class="ty">AnyPublisher</span>&lt;[<span class="ty">Item</span>], <span class="ty">Error</span>&gt;
+}
+
+<span class="cm">// ── Real implementation ──────────────────────────────</span>
+<span class="kw">final class</span> <span class="ty">ItemService</span>: <span class="ty">ItemServiceProtocol</span> {
+
+    <span class="kw">private let</span> <span class="pr">url</span> = <span class="ty">URL</span>(<span class="pr">string</span>: <span class="st">"https://jsonplaceholder.typicode.com/posts"</span>)!
+
+    <span class="kw">func</span> <span class="fn">fetchItems</span>() -> <span class="ty">AnyPublisher</span>&lt;[<span class="ty">Item</span>], <span class="ty">Error</span>&gt; {
+        <span class="ty">URLSession</span>.shared
+            .<span class="fn">dataTaskPublisher</span>(<span class="pr">for</span>: <span class="pr">url</span>)
+            .<span class="fn">map</span>(\.data)
+            .<span class="fn">decode</span>(<span class="pr">type</span>: [<span class="ty">Item</span>].<span class="kw">self</span>, <span class="pr">decoder</span>: <span class="ty">JSONDecoder</span>())
+            .<span class="fn">eraseToAnyPublisher</span>()
+    }
+}
+
+<span class="cm">// ── Mock for unit tests ──────────────────────────────</span>
+<span class="kw">final class</span> <span class="ty">MockItemService</span>: <span class="ty">ItemServiceProtocol</span> {
+    <span class="kw">func</span> <span class="fn">fetchItems</span>() -> <span class="ty">AnyPublisher</span>&lt;[<span class="ty">Item</span>], <span class="ty">Error</span>&gt; {
+        <span class="kw">let</span> fakeItems = [
+            <span class="ty">Item</span>(<span class="pr">id</span>: <span class="st">1</span>, <span class="pr">title</span>: <span class="st">"Hello"</span>, <span class="pr">body</span>: <span class="st">"World"</span>),
+            <span class="ty">Item</span>(<span class="pr">id</span>: <span class="st">2</span>, <span class="pr">title</span>: <span class="st">"Swift"</span>, <span class="pr">body</span>: <span class="st">"Rocks"</span>)
+        ]
+        <span class="kw">return</span> <span class="ty">Just</span>(fakeItems)
+            .<span class="fn">setFailureType</span>(<span class="pr">to</span>: <span class="ty">Error</span>.<span class="kw">self</span>)
+            .<span class="fn">eraseToAnyPublisher</span>()
+    }
+}</pre>
+  <div class="section-note">
+    💡 Use the protocol + mock pattern so you can test ViewModels without hitting real network calls.
+  </div>
+</div>
+
+<script>
+function show(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
