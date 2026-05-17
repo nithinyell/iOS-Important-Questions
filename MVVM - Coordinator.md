@@ -5,7 +5,7 @@ Model/Service — plain structs + a protocol so you can swap in a mock for tests
 
 The golden rule: when a user taps something → VC calls viewModel.didSelectItem() → ViewModel calls coordinator.showDetail() → Coordinator creates the next VC and pushes it. Navigation logic never leaks into VCs or ViewModels.
 
-https://htmlpreview.github.io/?https://github.com/nithinyell/iOS-Important-Questions/blob/main/MVVM-C.html
+[Preview](https://htmlpreview.github.io/?https://github.com/nithinyell/iOS-Important-Questions/blob/main/MVVM-C.html)
 
 ```
 import SwiftUI
