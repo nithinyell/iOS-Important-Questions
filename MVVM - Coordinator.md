@@ -9,11 +9,14 @@ The golden rule: when a user taps something → VC calls viewModel.didSelectItem
 
 Insta Like posts / Feed Mobile System Design
 ```
-Data pagination solves 1000 records problem.
-Image CDN + caching solves high-resolution image problem.
-Virtualized list solves UI performance problem.
-Prefetching solves smooth scrolling problem.
-ViewModel state solves clean architecture problem.
+1. Data pagination solves 1000 records problem.
+2. Image CDN + caching solves high-resolution image problem.
+    a. Memory cache      -> currently visible images
+    b. Disk cache        -> previously loaded images
+    c. Network cache     -> CDN/browser/URLSession cache
+3. Virtualized list solves UI performance problem.
+4. Prefetching solves smooth scrolling problem.
+5. ViewModel state solves clean architecture problem.
 ```
 
 ```
