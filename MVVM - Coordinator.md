@@ -7,6 +7,15 @@ The golden rule: when a user taps something → VC calls viewModel.didSelectItem
 
 [Preview](https://htmlpreview.github.io/?https://github.com/nithinyell/iOS-Important-Questions/blob/main/MVVM-C.html)
 
+Insta Like posts / Feed Mobile System Design
+```
+Data pagination solves 1000 records problem.
+Image CDN + caching solves high-resolution image problem.
+Virtualized list solves UI performance problem.
+Prefetching solves smooth scrolling problem.
+ViewModel state solves clean architecture problem.
+```
+
 ```
 import SwiftUI
 import Foundation
