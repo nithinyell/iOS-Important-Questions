@@ -22,6 +22,10 @@ A complete guide to modern Swift concurrency — `async/await`, `Task`, `TaskGro
 
 ---
 
+<img width="1440" height="680" alt="image" src="https://github.com/user-attachments/assets/7327a893-e646-4bfb-9000-16130cac3371" />
+
+---
+
 ## The Problem with GCD Callbacks
 
 Before structured concurrency, chaining async work meant deeply nested closures — often called "callback hell".
@@ -51,8 +55,6 @@ Problems with this approach:
 ---
 
 ## async / await basics
-<img width="1440" height="680" alt="image" src="https://github.com/user-attachments/assets/7327a893-e646-4bfb-9000-16130cac3371" />
-<img width="1440" height="480" alt="image" src="https://github.com/user-attachments/assets/2f9fde0b-085f-4ce3-a27e-208c93d8c52c" />
 
 Mark a function `async` to say it can be suspended. Call it with `await` to say "wait here, but don't block the thread".
 
@@ -217,6 +219,8 @@ func loadDashboard() async throws {
 ```
 
 ### Timing comparison
+
+<img width="1440" height="480" alt="image" src="https://github.com/user-attachments/assets/2f9fde0b-085f-4ce3-a27e-208c93d8c52c" />
 
 ```
 Sequential:   [--user--][--posts--][--comments--]   = 900ms
