@@ -76,6 +76,32 @@ func loadProfile() async throws {
 
 `await` suspends the function — it yields the thread so other work can run — then resumes when the result is ready. It does **not** block the thread.
 
+```
+Converting a Completion Handler
+
+`withCheckedContinuation` & `withCheckedThrowingContinuation`
+
+If you have an old-style network request:
+
+fetchData(completion: @escaping (Result<String, Error>) -> Void) { ... }
+
+Use code with caution.You can wrap it like this:swiftfunc fetchData() async throws -> String {
+    try await withCheckedThrowingContinuation { continuation in
+        // Call the original closure-based function
+        fetchData { result in
+            switch result {
+            case .success(let data):
+                // Resume and return data to the await call site
+                continuation.resume(returning: data)
+            case .failure(let error):
+                // Resume and throw the error
+                continuation.resume(throwing: error)
+            }
+        }
+    }
+}
+```
+
 ---
 
 ## Task — bridging sync to async
