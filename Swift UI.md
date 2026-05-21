@@ -1,66 +1,102 @@
-### SwiftUI (2019) Property Wrappers
-- State: 
-    - It is used inside `View` objects. It allows your view to respond to any changes made to @State
-    - Use state for properties owned by the view
-    - This will be always a `private` property
-    - Very good for `primitive` types
-- Binding:
-    - Referes to a value type owned by different view
-    - Changes to binding will effect the remote object also, as it have both read and write access
-- Bindable:
-    - Used to create bindings to the properties on `@observableObjects`  
-- State Object:
-    -  Similar to state but applied for `@observableObjects`  
-- Observed Object:
-    - Refer to instance of external class that conforms to `@observable` protocol 
-- State Object vs Observed Object:
-    |Observed Object|State Object|
-    |-|-|
-    |Used to observe & react to changes in externally provided observable objects|Used to create and own the life cycle of observable objects in a view|
-- App Storage:
-    - Read and write values from userDefaults 
-- Environment Object:
-
-### Actors
-- SwiftUI provides the @StateObject and @ObservedObject property wrappers that are used with reference types, such as classes. However, these property wrappers are not sufficient for sharing state across multiple views in a way that is `safe and efficient`.
-- In Swift 5.5, Apple introduced __actors__, a new concept for writing `concurrent code`. Actors are a reference type that can encapsulate state and allow you to interact with that state safely from __multiple threads.__ Actors help you avoid common concurrency issues, such as race conditions and data races.
-```
-actor Counter {
-    var value: Int = 0
-    
-    func increment() {
-        value += 1
-    }
-    
-    func decrement() {
-        value -= 1
-    }
-}
-```
-
-### MainActor
-- The MainActor attribute was introduced in Swift 5.5 to mark classes, structures, or actors whose members `must be accessed exclusively from the main thread`. This feature is particularly useful in SwiftUI, where the user interface should only be updated from the main thread to avoid concurrency issues.
-
 # Complete SwiftUI Reference Guide
 
-Interactive-style reference guide with clear explanations and code examples.
+Interactive-style reference guide with clear explanations, diagrams, and code examples.
 
-## Topics
+---
 
-- Property Wrappers
-- Custom Views
-- Custom Modifiers
-- Layout System
-- Data Flow
-- Animations
-- Navigation
-- iOS 17/18 New APIs
+# Table of Contents
+
+1. [SwiftUI Mental Model](#swiftui-mental-model)
+2. [Property Wrappers](#property-wrappers)
+    - [`@State`](#state)
+    - [`@Binding`](#binding)
+    - [`@StateObject`](#stateobject)
+    - [`@ObservedObject`](#observedobject)
+    - [`@EnvironmentObject`](#environmentobject)
+    - [`@Environment`](#environment)
+    - [`@Observable`](#observable)
+    - [`@AppStorage`](#appstorage)
+    - [`@SceneStorage`](#scenestorage)
+    - [Property Wrapper Comparison](#property-wrapper-comparison)
+3. [Custom Views](#custom-views)
+    - [Basic Custom View](#basic-custom-view)
+    - [Custom View With Action](#custom-view-with-action)
+4. [Custom Modifiers](#custom-modifiers)
+    - [Basic Custom Modifier](#basic-custom-modifier)
+    - [Custom Modifier With Parameters](#custom-modifier-with-parameters)
+5. [Layout System](#layout-system)
+    - [`VStack`](#vstack)
+    - [`HStack`](#hstack)
+    - [`ZStack`](#zstack)
+    - [`LazyVStack`](#lazyvstack)
+    - [`LazyVGrid`](#lazyvgrid)
+6. [Data Flow](#data-flow)
+    - [Parent to Child](#parent-to-child)
+    - [Child to Parent](#child-to-parent)
+    - [Parent State Modified by Child](#parent-state-modified-by-child)
+7. [Animations](#animations)
+    - [Implicit Animation](#implicit-animation)
+    - [Explicit Animation](#explicit-animation)
+    - [Transition](#transition)
+8. [Navigation](#navigation)
+    - [Basic Navigation](#basic-navigation)
+    - [Navigation With Value](#navigation-with-value)
+    - [Programmatic Navigation](#programmatic-navigation)
+9. [iOS 17/18 New APIs](#ios-1718-new-apis)
+    - [`@Observable`](#observable-1)
+    - [`NavigationStack`](#navigationstack)
+    - [`ContentUnavailableView`](#contentunavailableview)
+    - [`sensoryFeedback`](#sensoryfeedback)
+    - [`symbolEffect`](#symboleffect)
+    - [`scrollPosition`](#scrollposition)
+    - [`containerRelativeFrame`](#containerrelativeframe)
+    - [`PhaseAnimator`](#phaseanimator)
+    - [`KeyframeAnimator`](#keyframeanimator)
+10. [Quick Rules](#quick-rules)
+11. [Common Interview Explanation](#common-interview-explanation)
+12. [Best Practices](#best-practices)
+13. [Mini Complete Example](#mini-complete-example)
+
+---
+
+# SwiftUI Mental Model
+
+SwiftUI is declarative.
+
+You do not manually update UI.  
+You update state, and SwiftUI updates the UI.
+
+```mermaid
+flowchart TD
+    A["User Action"] --> B["State Changes"]
+    B --> C["SwiftUI recomputes body"]
+    C --> D["View Updates"]
+    D --> A
+```
+
+## Simple Memory Rule
+
+```text
+State changes -> body recomputes -> UI updates
+```
 
 ---
 
 # Property Wrappers
 
 SwiftUI uses property wrappers to manage state, data flow, environment values, persistence, and observable models.
+
+```mermaid
+flowchart LR
+    State["State"] --> Owns["View owns local data"]
+    Binding["Binding"] --> Child["Child edits parent data"]
+    StateObject["StateObject"] --> Creates["View creates object"]
+    ObservedObject["ObservedObject"] --> Receives["View receives object"]
+    EnvironmentObject["EnvironmentObject"] --> Shared["Shared object from root"]
+    Environment["Environment"] --> System["System values"]
+    AppStorage["AppStorage"] --> Defaults["UserDefaults"]
+    SceneStorage["SceneStorage"] --> Scene["Scene state"]
+```
 
 ---
 
@@ -78,6 +114,15 @@ Use `@State` for simple local value types like:
 - `String`
 - `Array`
 - `Struct`
+
+### Diagram
+
+```mermaid
+flowchart TD
+    View["View owns State"] --> Value["Local value changes"]
+    Value --> Body["body recomputes"]
+    Body --> UI["UI updates"]
+```
 
 ### Example
 
@@ -128,6 +173,15 @@ Always mark `@State` as `private`.
 The parent owns the state.  
 The child receives a binding using `$`.
 
+### Diagram
+
+```mermaid
+flowchart TD
+    Parent["Parent owns State"] --> Child["Child receives Binding"]
+    Child --> Update["Child updates value"]
+    Update --> Parent
+```
+
 ### Child View
 
 ```swift
@@ -175,6 +229,16 @@ struct SettingsView: View {
 Use it when the view is responsible for creating the object.
 
 The object survives SwiftUI view re-renders.
+
+### Diagram
+
+```mermaid
+flowchart TD
+    View["View"] --> StateObject["StateObject"]
+    StateObject --> Model["ObservableObject Model"]
+    Model --> Published["Published property changes"]
+    Published --> Render["View re-renders"]
+```
 
 ### Model
 
@@ -231,6 +295,15 @@ struct TimerView: View {
 It does not own the object.
 
 Use it when the parent owns the model and passes it to a child.
+
+### Diagram
+
+```mermaid
+flowchart TD
+    Parent["Parent owns model"] --> Child["Child receives model"]
+    Child --> ObservedObject["ObservedObject watches model"]
+    ObservedObject --> Render["Child re-renders on change"]
+```
 
 ### Child View
 
@@ -291,6 +364,17 @@ struct TimerParentView: View {
 `@EnvironmentObject` allows shared data to be injected into the SwiftUI view hierarchy.
 
 You do not need to manually pass the object through every screen.
+
+### Diagram
+
+```mermaid
+flowchart TD
+    Root["Root App or Root View"] --> Inject["Inject environment object"]
+    Inject --> ScreenA["Screen A"]
+    Inject --> ScreenB["Screen B"]
+    Inject --> DeepView["Deep Nested View"]
+    DeepView --> Read["Reads EnvironmentObject"]
+```
 
 ### Model
 
@@ -377,6 +461,15 @@ Common examples:
 - Scene phase
 - Accessibility settings
 
+### Diagram
+
+```mermaid
+flowchart TD
+    System["System or SwiftUI"] --> Values["Environment values"]
+    Values --> View["View reads Environment"]
+    View --> UI["Adaptive UI"]
+```
+
 ### Example
 
 ```swift
@@ -428,6 +521,15 @@ With `@Observable`, you do not need:
 ObservableObject
 @Published
 @ObservedObject
+```
+
+### Diagram
+
+```mermaid
+flowchart TD
+    Model["Observable model"] --> Property["Stored property changes"]
+    Property --> Tracking["SwiftUI tracks used properties"]
+    Tracking --> Update["Only affected views update"]
 ```
 
 ### Model
@@ -532,6 +634,15 @@ Examples:
 - Selected language
 - Onboarding completed flag
 
+### Diagram
+
+```mermaid
+flowchart TD
+    View["View"] --> AppStorage["AppStorage"]
+    AppStorage --> UserDefaults["UserDefaults"]
+    UserDefaults --> Restore["Value restored later"]
+```
+
 ### Example
 
 ```swift
@@ -567,6 +678,15 @@ struct AppStorageExampleView: View {
 `@SceneStorage` stores temporary UI state for a specific scene.
 
 Useful for restoring UI state when the app is relaunched.
+
+### Diagram
+
+```mermaid
+flowchart TD
+    Scene["Scene"] --> SceneStorage["SceneStorage"]
+    SceneStorage --> UIState["Temporary UI state"]
+    UIState --> Restore["Restored for that scene"]
+```
 
 ### Example
 
@@ -624,6 +744,13 @@ struct SceneStorageExampleView: View {
 SwiftUI views are structs that conform to `View`.
 
 Use custom views to break large screens into smaller reusable components.
+
+```mermaid
+flowchart TD
+    LargeView["Large Screen"] --> Header["Header View"]
+    LargeView --> Content["Content View"]
+    LargeView --> Footer["Footer View"]
+```
 
 ---
 
@@ -712,6 +839,12 @@ struct LoginView: View {
 # Custom Modifiers
 
 Custom modifiers help reuse styling.
+
+```mermaid
+flowchart TD
+    View["Any View"] --> Modifier["Custom Modifier"]
+    Modifier --> StyledView["Reusable styled view"]
+```
 
 ---
 
@@ -821,6 +954,15 @@ Common layout containers:
 - `LazyHStack`
 - `LazyVGrid`
 - `LazyHGrid`
+
+```mermaid
+flowchart TD
+    Layout["SwiftUI Layout"] --> VStackNode["VStack vertical"]
+    Layout --> HStackNode["HStack horizontal"]
+    Layout --> ZStackNode["ZStack overlap"]
+    Layout --> LazyNode["Lazy containers for performance"]
+    Layout --> GridNode["Grid containers"]
+```
 
 ---
 
@@ -969,6 +1111,14 @@ struct LazyVGridExample: View {
 
 SwiftUI data flow is based on ownership.
 
+```mermaid
+flowchart TD
+    Parent["Parent View"] --> Props["Pass data using properties"]
+    Parent --> Binding["Pass editable data using Binding"]
+    Child["Child View"] --> Closure["Send events back using closure"]
+    Closure --> Parent
+```
+
 ---
 
 ## Parent to Child
@@ -1059,6 +1209,12 @@ struct NameParentView: View {
 # Animations
 
 SwiftUI supports implicit and explicit animations.
+
+```mermaid
+flowchart TD
+    StateChange["State changes"] --> Animation["Animation modifier or withAnimation"]
+    Animation --> Transition["View animates between old and new state"]
+```
 
 ---
 
@@ -1155,6 +1311,14 @@ struct TransitionExampleView: View {
 # Navigation
 
 Use `NavigationStack` for modern SwiftUI navigation.
+
+```mermaid
+flowchart TD
+    Home["Home Screen"] --> Link["NavigationLink"]
+    Link --> Detail["Detail Screen"]
+    Home --> Path["NavigationPath"]
+    Path --> Programmatic["Programmatic navigation"]
+```
 
 ---
 
@@ -1266,6 +1430,8 @@ struct ProgrammaticNavigationView: View {
 ---
 
 # iOS 17/18 New APIs
+
+Modern SwiftUI APIs improve observation, navigation, animations, empty states, scrolling, and feedback.
 
 ---
 
@@ -1529,41 +1695,33 @@ struct AnimationValues {
 
 ## State Ownership
 
-```swift
-@State
+| Use This | When |
+|---|---|
+| `@State` | View owns simple local state |
+| `@Binding` | Child modifies parent state |
+| `@StateObject` | View creates and owns an `ObservableObject` |
+| `@ObservedObject` | View receives an `ObservableObject` |
+| `@EnvironmentObject` | Many screens need the same shared object |
+| `@Environment` | View reads system-provided values |
+| `@Observable` | Modern iOS 17+ observable models |
+| `@AppStorage` | Persist small values in `UserDefaults` |
+| `@SceneStorage` | Restore temporary scene UI state |
+
+---
+
+## Memory Shortcut
+
+```text
+State owns.
+Binding borrows.
+StateObject creates.
+ObservedObject receives.
+EnvironmentObject shares.
+Environment reads.
+AppStorage persists.
+SceneStorage restores.
+Observable modernizes.
 ```
-
-Use when the view owns simple local state.
-
-```swift
-@Binding
-```
-
-Use when the child modifies parent state.
-
-```swift
-@StateObject
-```
-
-Use when the view creates and owns an `ObservableObject`.
-
-```swift
-@ObservedObject
-```
-
-Use when the view receives an `ObservableObject`.
-
-```swift
-@EnvironmentObject
-```
-
-Use when many screens need the same shared object.
-
-```swift
-@Observable
-```
-
-Use for modern iOS 17+ observable models.
 
 ---
 
@@ -1702,4 +1860,4 @@ struct TodoRowView: View {
 
 # End
 
-This guide covers the most important SwiftUI concepts with working code examples.
+This guide covers the most important SwiftUI concepts with working code examples, diagrams, and memory shortcuts.
