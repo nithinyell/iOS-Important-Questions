@@ -80,6 +80,137 @@ flowchart TD
 State changes -> body recomputes -> UI updates
 ```
 
+# SwiftUI View Lifecycle
+
+SwiftUI views are value types.  
+A view can be created many times, but SwiftUI keeps the actual UI state separately.
+
+---
+
+## Lifecycle Diagram
+
+```mermaid
+flowchart TD
+    A["View Initialized"] --> B["body computed"]
+    B --> C["View appears on screen"]
+    C --> D["onAppear called"]
+    D --> E["State changes"]
+    E --> F["body recomputed"]
+    F --> G["UI updated"]
+    G --> E
+    C --> H["View removed from screen"]
+    H --> I["onDisappear called"]
+```
+
+---
+
+## Important Lifecycle Methods
+
+| Lifecycle API | When it runs |
+|---|---|
+| `init()` | When SwiftUI creates the view struct |
+| `body` | Recomputed whenever observed state changes |
+| `onAppear` | When view appears on screen |
+| `onDisappear` | When view leaves screen |
+| `task` | Runs async work when view appears |
+| `onChange` | Runs when a watched value changes |
+
+---
+
+## Basic Example
+
+```swift
+import SwiftUI
+
+struct LifecycleView: View {
+    @State private var count = 0
+
+    init() {
+        print("init called")
+    }
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text("Count: \(count)")
+
+            Button("Increase") {
+                count += 1
+            }
+        }
+        .onAppear {
+            print("onAppear called")
+        }
+        .onDisappear {
+            print("onDisappear called")
+        }
+        .onChange(of: count) { oldValue, newValue in
+            print("Count changed from \(oldValue) to \(newValue)")
+        }
+    }
+}
+```
+
+## `task` Example
+
+Use `.task` for async loading.
+
+```swift
+import SwiftUI
+
+struct UserProfileView: View {
+    @State private var username = "Loading..."
+
+    var body: some View {
+        Text(username)
+            .task {
+                username = await fetchUsername()
+            }
+    }
+
+    func fetchUsername() async -> String {
+        return "Nithin"
+    }
+}
+```
+
+## Explanation
+
+SwiftUI lifecycle is state-driven.
+
+The view struct itself is lightweight and can be recreated often.  
+The important lifecycle is:
+
+```text
+State changes -> body recomputes -> SwiftUI diffs UI -> screen updates
+```
+
+Do not treat SwiftUI views like UIKit view controllers.
+
+In UIKit, lifecycle is object-driven:
+
+```text
+viewDidLoad -> viewWillAppear -> viewDidAppear
+```
+
+In SwiftUI, lifecycle is data-driven:
+
+```text
+init -> body -> onAppear -> state changes -> body again
+```
+
+---
+
+## Memory Shortcut
+
+```text
+init creates the value.
+body describes the UI.
+onAppear starts work.
+onChange reacts to state.
+task runs async work.
+onDisappear cleans up.
+```
+
 ---
 
 # Property Wrappers
