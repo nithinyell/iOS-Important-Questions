@@ -34,7 +34,7 @@ Dispatch Queues work on two axes:
 | **How you dispatch** | `.async` / `.sync` | `.async` / `.sync` |
 
 - **Serial / Concurrent**: describes the queue — how many tasks can run at once.
-- **asyn / asyncc**: describes the caller — does it wait or not.
+- **sync / async**: describes the caller — does it wait or not.
 - **Serial**: tasks run one at a time, in the order they were submitted.
 - **Concurrent**: tasks can overlap; they start in order but may finish in any order.
 - **async**: the caller continues immediately without waiting.
