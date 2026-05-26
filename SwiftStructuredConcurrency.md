@@ -80,8 +80,8 @@ func loadProfile() async throws {
 
 ## Converting a Completion Handler
 
-withCheckedContinuation        // when it cannot fail
-withCheckedThrowingContinuation // when it can fail
+1. **withCheckedContinuation**        // when it cannot fail
+2. **withCheckedThrowingContinuation** // when it can fail
 
 ```
 If you have an old-style network request:
