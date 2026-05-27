@@ -287,6 +287,31 @@
   - Avoid middle man attacks
   - Private Key Pinning - Client will use same private key as server
   - Certificate Pinning - Client will use the same certificate of server. Developer must keep updating the certificates depending on expiry dates
+## Combine
+Apple's reactive programming framework. Models asynchronous values as streams using Publishers and Subscribers.
+
+Core Concepts
+|Concept|What it is|
+|-|-|
+|Publisher|Emits values over time|
+|Subscriber|Receives and reacts to values|
+Operator|Transforms values in the pipeline|
+|AnyCancellable|Token that keeps a subscription alive|
+|Subject|Publisher you can push values into manually|
+
+Basic Pipeline
+```
+swiftURLSession.shared.dataTaskPublisher(for: url)
+    .map(\.data)
+    .decode(type: User.self, decoder: JSONDecoder())
+    .receive(on: DispatchQueue.main)
+    .sink(
+        receiveCompletion: { print($0) },
+        receiveValue: { self.user = $0 }
+    )
+    .store(in: &cancellables)
+```
+
 ## CI-CD
 ## Push-Notifications
 ## CoreData
