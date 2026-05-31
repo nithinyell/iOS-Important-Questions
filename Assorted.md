@@ -185,12 +185,6 @@
   |-|-|
   |Refers to the current instance of a class or struct|Refers to type|
   
-## Clean Architecture
-  - Refer to [Clean-Code.md](Clean-Code.md) for comprehensive clean architecture practices
-  - Key principle: Separation of concerns with clear dependency rules
-  - Layers: UI → Presentation → Domain → Data
-  - Benefits: Testability, maintainability, flexibility, independence from frameworks
-
 ## AppDelegate Methods
   **Application Lifecycle Methods:**
   - `application(_:didFinishLaunchingWithOptions:)` - App has launched, perform initial setup
