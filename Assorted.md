@@ -312,6 +312,27 @@ swiftURLSession.shared.dataTaskPublisher(for: url)
     .store(in: &cancellables)
 ```
 
+---
+
+## Swift Version History
+ 
+| Version | Year | Theme | Landmark Features |
+|---------|------|-------|-------------------|
+| **Swift 1** | 2014 | Birth | Optionals, type inference, closures, structs vs classes, enums with associated values, generics, ARC, playgrounds |
+| **Swift 2** | 2015 | Error handling | `try / throw / catch`, `guard`, `defer`, protocol extensions, Swift open-sourced |
+| **Swift 3** | 2016 | API redesign | New API design guidelines, argument labels revamped (most source-breaking release ever), `fileprivate` / `open` access levels, Swift Package Manager v1 |
+| **Swift 4** | 2017 | Codable | `Codable / Encodable / Decodable`, String revamp (Collections API), key paths (`\Type.property`), Dictionary & Set improvements, one-sided ranges |
+| **Swift 4.2** | 2018 | Refinements | `CaseIterable`, conditional conformances, `Bool.toggle()`, random number API, `allSatisfy` / `removeAll` |
+| **Swift 5.0** | 2019 | ABI Stable | ABI stability (Swift runtime ships in OS), `Result<Success, Failure>`, raw strings (`#"..."#`), `@dynamicCallable`, string interpolation overhaul |
+| **Swift 5.1** | 2019 | SwiftUI era | `some` keyword (opaque return types), `@propertyWrapper`, `@functionBuilder` (→ `@resultBuilder`), module stability, implicit single-expression returns |
+| **Swift 5.5** | 2021 | Concurrency | `async / await`, `actor` type, structured concurrency (`async let`, `TaskGroup`), `@MainActor`, `AsyncSequence / AsyncStream`, `Task / Task.detached`, `Sendable` protocol introduced |
+| **Swift 5.7** | 2022 | Existentials | `any Protocol` (explicit existential types), primary associated types (`Protocol<T>`), `if let` shorthand, `Clock / Instant / Duration` types, regex literals (`/pattern/`), `if` / `switch` as expressions |
+| **Swift 5.9** | 2023 | Macros | `@attached` and `#freestanding` macros, `@Observable` macro (replaces `ObservableObject`), SwiftData (`@Model` macro), parameter packs (variadic generics), `~Copyable` preview |
+| **Swift 5.10** | 2024 | Data safety | Complete concurrency checking (opt-in), `@preconcurrency` for gradual migration, nonisolated stored properties, global mutable state deprecation warnings |
+| **Swift 6.0** | 2024 | Compile-time safety | Data-race safety ON by default (Sendable enforced), `Mutex` type (`Synchronization` module), typed throws (`throws(MyError)`), noncopyable types (`~Copyable`) stable, lifetime annotations (`borrow / consume`), Swift Testing (`@Test`, `@Suite`), `count(where:)` |
+
+ ---
+
 ## CI-CD
 ## Push-Notifications
 ## CoreData
