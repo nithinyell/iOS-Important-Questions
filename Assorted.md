@@ -334,5 +334,7 @@ swiftURLSession.shared.dataTaskPublisher(for: url)
  ---
 
 ## CI-CD
+<img width="1440" height="1240" alt="image" src="https://github.com/user-attachments/assets/3e00a664-92fd-406c-bc8b-54ef10c1462f" />
+
 ## Push-Notifications
 ## CoreData
