@@ -22,8 +22,6 @@ Insta Like posts / Feed Mobile System Design
 ```
 
 ```
-import SwiftUI
-import Foundation
 
 // MARK: - Model
 
@@ -51,15 +49,15 @@ enum NetworkError: Error {
 }
 
 protocol NetworkServicing {
-    func fetchData(from urlString: String) async throws -> Data
+    func request(from urlString: String) async throws -> Data
 }
 
 final class NetworkService: NetworkServicing {
-    func fetchData(from urlString: String) async throws -> Data {
+    func request(from urlString: String) async throws -> Data {
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
-
+        
         let (data, response) = try await URLSession.shared.data(from: url)
 
         guard let httpResponse = response as? HTTPURLResponse,
@@ -87,7 +85,7 @@ final class FeedRepository: FeedRepositoryProtocol {
     }
 
     func fetchFeed() async throws -> [FeedResult] {
-        let data = try await networkService.fetchData(from: urlString)
+        let data = try await networkService.request(from: urlString)
 
         do {
             let response = try JSONDecoder().decode(FeedResponse.self, from: data)
@@ -100,11 +98,16 @@ final class FeedRepository: FeedRepositoryProtocol {
 
 // MARK: - ViewModel
 
-@MainActor
+@Observable
 final class FeedViewModel: ObservableObject {
-    @Published var posts: [FeedResult] = []
-    @Published var isLoading = false
-    @Published var errorMessage: String?
+    
+    enum viewState {
+        case loading
+        case loaded([FeedResult])
+        case error(String)
+    }
+    
+    var viewStatee: viewState = .loading
 
     private let repository: FeedRepositoryProtocol
     private let coordinator: FeedCoordinating
@@ -117,17 +120,16 @@ final class FeedViewModel: ObservableObject {
         self.coordinator = coordinator
     }
 
+    @MainActor
     func fetchFeed() async {
-        isLoading = true
-        errorMessage = nil
+        viewStatee = .loading
 
         do {
-            posts = try await repository.fetchFeed()
+            let posts = try await repository.fetchFeed()
+            viewStatee = .loaded(posts)
         } catch {
-            errorMessage = "Something went wrong. Please try again."
+            viewStatee = .error("Something went wrong. Please try again.")
         }
-
-        isLoading = false
     }
 
     func didSelectPost(_ post: FeedResult) {
@@ -177,17 +179,15 @@ final class FeedCoordinator: ObservableObject, FeedCoordinating {
 // MARK: - View
 
 struct FeedView: View {
-    @StateObject var viewModel: FeedViewModel
+    @State var viewModel: FeedViewModel
 
     var body: some View {
         Group {
-            if viewModel.isLoading {
-                ProgressView("Loading...")
-            } else if let errorMessage = viewModel.errorMessage {
-                Text(errorMessage)
-                    .foregroundStyle(.red)
-            } else {
-                List(viewModel.posts) { post in
+            switch viewModel.viewStatee {
+            case .loading:
+                ProgressView("Loading Albums")
+            case .loaded(let posts):
+                List(posts) { post in
                     Button {
                         viewModel.didSelectPost(post)
                     } label: {
@@ -195,11 +195,14 @@ struct FeedView: View {
                     }
                     .buttonStyle(.plain)
                 }
+            case .error(let errorMessage):
+                Text(errorMessage)
+                    .foregroundStyle(.red)
             }
         }
         .navigationTitle("Albums")
         .task {
-            await viewModel.fetchFeed()
+           await viewModel.fetchFeed()
         }
     }
 }
@@ -209,24 +212,33 @@ struct FeedRowView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            AsyncImage(url: URL(string: post.artworkUrl100)) { image in
-                image
-                    .resizable()
-                    .scaledToFill()
-            } placeholder: {
-                ProgressView()
-            }
-            .frame(width: 50, height: 50)
-            .clipShape(RoundedRectangle(cornerRadius: 8))
+            albumImage
+            details
+        }
+    }
+    
+    @ViewBuilder
+    var albumImage: some View {
+        AsyncImage(url: URL(string: post.artworkUrl100)) { image in
+            image
+                .resizable()
+                .scaledToFit()
+        } placeholder: {
+            ProgressView()
+        }
+        .frame(width: 50, height: 50)
+        .clipShape(RoundedRectangle(cornerRadius: 8))
+    }
+    
+    @ViewBuilder
+    var details: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(post.name)
+                .font(.headline)
 
-            VStack(alignment: .leading, spacing: 4) {
-                Text(post.name)
-                    .font(.headline)
-
-                Text(post.artistName)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-            }
+            Text(post.artistName)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
         }
     }
 }
@@ -277,7 +289,6 @@ struct PostsApp: App {
                         coordinator.build(route: route)
                     }
             }
-        }
     }
 }
 ```
