@@ -9,16 +9,17 @@ A complete guide to modern Swift concurrency — `async/await`, `Task`, `TaskGro
 1. [The Problem with GCD Callbacks](#the-problem-with-gcd-callbacks)
 2. [async / await basics](#async--await-basics)
 3. [Task — bridging sync to async](#task--bridging-sync-to-async)
-4. [Void and Never](#void-and-never)
-5. [Sequential API calls](#sequential-api-calls)
-6. [Parallel API calls — async let](#parallel-api-calls--async-let)
-7. [Dynamic parallel work — TaskGroup](#dynamic-parallel-work--taskgroup)
-8. [Update UI as results arrive](#update-ui-as-results-arrive)
-9. [Cancellation](#cancellation)
-10. [MainActor](#mainactor)
-11. [Actors — thread-safe state](#actors--thread-safe-state)
-12. [The full pattern](#the-full-pattern)
-13. [GCD vs async/await equivalents](#gcd-vs-asyncawait-equivalents)
+4. [Task - Detached](#Detached-Tasks-in-Swift-Concurrency)
+5. [Void and Never](#void-and-never)
+6. [Sequential API calls](#sequential-api-calls)
+7. [Parallel API calls — async let](#parallel-api-calls--async-let)
+8. [Dynamic parallel work — TaskGroup](#dynamic-parallel-work--taskgroup)
+9. [Update UI as results arrive](#update-ui-as-results-arrive)
+10. [Cancellation](#cancellation)
+11. [MainActor](#mainactor)
+12. [Actors — thread-safe state](#actors--thread-safe-state)
+13. [The full pattern](#the-full-pattern)
+14. [GCD vs async/await equivalents](#gcd-vs-asyncawait-equivalents)
 
 ---
 
@@ -153,6 +154,88 @@ loadTask?.cancel()
 
 ---
 
+## Detached Tasks in Swift Concurrency
+
+### What is a Task?
+When you write `async` code in Swift, it runs inside a **Task** — think of it like a thread that executes your async work.
+
+```swift
+Task {
+    await fetchUser()
+}
+```
+
+### Task vs Task.detached
+
+When you create a regular `Task { }`, it **inherits context from the caller**:
+- Same actor (e.g. MainActor if called from UI)
+- Same priority
+- Same task-local values
+
+`Task.detached { }` ignores all of that — it starts completely fresh.
+
+```swift
+@MainActor
+func onButtonTap() {
+
+    Task {
+        // inherits MainActor from caller — still on main thread
+        await fetchUser()
+    }
+
+    Task.detached {
+        // ignores caller context — NOT on MainActor
+        await fetchUser()
+    }
+}
+```
+
+### Comparison
+
+| Property          | `Task { }`        | `Task.detached { }` |
+|-------------------|-------------------|----------------------|
+| Actor context     | ✅ Inherited       | ❌ None              |
+| Priority          | ✅ Inherited       | ❌ `.medium` default |
+| Task-local values | ✅ Inherited       | ❌ Not inherited     |
+
+### When to use Task.detached
+
+Use it when you're on the main thread but need to do **heavy background work** (disk I/O, image processing, etc.) and want to guarantee it doesn't touch the main thread.
+
+```swift
+@MainActor
+func saveToCache(_ data: Data) {
+    Task.detached(priority: .background) {
+        await Cache.shared.write(data) // runs off main thread
+    }
+}
+```
+
+### ⚠️ Watch out
+
+Detached tasks are **fire-and-forget** — nothing owns them. If the object that spawned the task deallocates, the task keeps running.
+
+Always hold the handle if you need to cancel:
+
+```swift
+let handle = Task.detached {
+    await heavyWork()
+}
+
+// cancel when needed
+handle.cancel()
+```
+
+---
+
+## Rule of Thumb
+
+- Heavy background work from `@MainActor` → `Task.detached`
+- Everything else → prefer `Task { }` or structured concurrency (`async let`, `TaskGroup`)
+
+> Detached tasks are rare in practice. Prefer structured concurrency whenever possible.
+
+---
 ## Void and Never
 
 These appear constantly in `Task` generics and are easy to confuse.
