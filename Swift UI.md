@@ -654,6 +654,8 @@ ObservableObject
 @ObservedObject
 ```
 
+- Smarter re-renders — SwiftUI tracks **only the properties a view reads**, not all `@Published` ones. Less boilerplate, simpler view syntax.
+
 ### Diagram
 
 ```mermaid
@@ -738,6 +740,60 @@ struct ScoreParentView: View {
     }
 }
 ```
+
+### Less boilerplate
+
+```swift
+// ❌ Old
+class VM: ObservableObject {
+    @Published var name = ""
+    @Published var isLoading = false
+}
+
+// ✅ New
+@Observable
+class VM {
+    var name = ""
+    var isLoading = false
+}
+```
+
+### Simpler view syntax
+
+```swift
+// ❌ Old — two different wrappers to remember
+@StateObject private var vm = MyVM()  // if view owns it
+@ObservedObject var vm: MyVM          // if passed in
+
+// ✅ New — one rule for everything
+@State private var vm = MyVM()        // view owns it
+let vm: MyVM                          // passed from parent
+```
+
+### Smarter re-renders
+
+```swift
+@Observable
+class ProfileVM {
+    var userName = ""   // view A reads this
+    var userAge = 0     // view B reads this
+}
+
+// View A only re-renders when userName changes
+// View B only re-renders when userAge changes
+// With ObservableObject, both re-render on any change
+```
+
+### Quick comparison
+
+| | `ObservableObject` | `@Observable` |
+|---|---|---|
+| iOS support | iOS 13+ | iOS 17+ |
+| Mark properties | `@Published` on each | Nothing needed |
+| Own in view | `@StateObject` | `@State` |
+| Pass to child | `@ObservedObject` | Plain `let` |
+| Re-render scope | Whole view | Only what changed |
+
 
 ### Key Points
 
