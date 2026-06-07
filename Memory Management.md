@@ -415,6 +415,22 @@ class ViewModel: ObservableObject {
 
 ### Sendable protocol
 
+In Swift concurrency, you often pass data between tasks or actors — which means passing data across threads. If two threads touch the same object at the same time, you get a data race — unpredictable bugs, crashes.
+
+Sendable is a protocol that tells the Swift compiler:
+
+"This type is safe to pass across threads/actors."
+
+That's it. It's a safety label.
+
+```
+// Two tasks, same object — danger
+var user = User()
+
+Task { user.name = "Nithin" }   // thread 1
+Task { user.name = "Bro" }      // thread 2 — 💥 data race
+```
+
 Swift's concurrency system prevents data races at compile time using `Sendable`:
 
 ```swift
@@ -433,6 +449,7 @@ class MutableState {   // NOT Sendable ⚠️
 - Structs with `Sendable` properties are automatically `Sendable`
 - Classes must be explicitly marked and must be thread-safe to be `Sendable`
 - `@Sendable` on closures ensures they only capture `Sendable` values
+- The `actor` itself is Sendable — meaning you can pass a reference to the actor across threads safely.
 
 ### Structured Concurrency and lifetime
 
