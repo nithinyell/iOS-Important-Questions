@@ -431,6 +431,39 @@ func downloadAll(urls: [URL]) async throws -> [Data] {
 }
 ```
 
+|Situation|	Use|
+|-|-|
+|Fixed 3 calls (users, posts, feed)|	async let ✅ simpler|
+|Load posts for a dynamic list of IDs|	TaskGroup — you don't know the count at compile time|
+|Want to process results as they arrive|	TaskGroup — for await loop|
+|Want a concurrency limit (max 3 at a time)|	TaskGroup|
+
+### Simple Example 
+
+```
+Task 1 ---> finishes --> drops 2 into box  ┐
+Task 2 ---> finishes --> drops 4 into box  ├── for loop picks these up one by one
+Task 3 ---> finishes --> drops 6 into box  ┘
+
+func doubleNumbers() async throws -> [Int] {
+    try await withThrowingTaskGroup(of: Int.self) { group in
+        
+        // add 3 tasks
+        group.addTask { return 2 }
+        group.addTask { return 4 }
+        group.addTask { return 6 }
+        
+        // collect results
+        var results: [Int] = []
+        
+        for try await number in group {
+            results.append(number)
+        }
+        
+        return results  // [2, 4, 6] in any order
+    }
+}
+```
 ---
 
 ## Update UI as results arrive
