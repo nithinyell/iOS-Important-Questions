@@ -77,7 +77,7 @@ DispatchQueue.global(qos: .userInitiated).async {
 - Ideal for isolating subsystems (database, cache, networking)
 
 ```swift
-let myQueue = DispatchQueue(label: "com.myapp.networking")
+let myQueue = DispatchQueue(label: "com.myapp.networking") OR let customConcurrentQueue = DispatchQueue(label: "com.concurrent", attributes: .concurrent)
 let defaultConcurrentQueue = DispatchConcurrentQueue(label: "com.default.concurrent")
 let defaultSerialQueue = DispatchSerialQueue(label: "com.default.serial")
 ```
