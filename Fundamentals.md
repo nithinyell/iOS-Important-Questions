@@ -79,12 +79,12 @@ var optionalInt: Int?
 var optionalString: String? 
 ```
 
-* Force Wrapping: If we are sure about the value and we can use it, if there is no value app will crash. `use ! to unwrap`
-* Optional Binding: Not sure about the value presence, if there is no value don't execute the block of code. `if let / if var`
-* Implicit unwrapping: Sure about the value and don't want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
-* Nil Coalescing: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
-* Optional Chaining: Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = person?.name`
-* Guard: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
+* `Force Wrapping`: If we are sure about the value and we can use it, if there is no value app will crash. `use ! to unwrap`
+* `Optional Binding`: Not sure about the value presence, if there is no value don't execute the block of code. `if let / if var`
+* `Implicit unwrapping`: Sure about the value and don't want to unwrap always. `use ! while declaring` `let name: String! = "Apple"`
+* `Nil Coalescing`: Some tike we want to use default value if optional is nil. `let resultName = name ?? "no name"`
+* `Optional Chaining`: Safely access properties and methods of an optional without unwrapping, and the result will be an optional itself. `let personName: Person = person?.name`
+* `Guard`: Helps to avoid complex nested `if let` statements. Another benefit is early exit. `guard let unwrapped = optional else { return }`
 
 ### Struct-Class
 
@@ -93,22 +93,22 @@ Both of them will have properties, methods, initializers and conform to the prot
 Struct:
 
 * Each instance will keep the unique copy of data - `Copy on writes`
-* Structs are value types
-* When struct is assigned to a var, constant or passed to a function, its value is copied instead of increasing the reference count
+* Structs are **value types**
+* When struct is assigned to a var, constant or passed to a function, its **value is copied instead of increasing the reference count**
 * Thread safe because its not sharable
-* They are allocated on stack and occupies less memory and fast
+* They are allocated on **stack (LIFO)** and occupies less memory and fast
 
 Class:
 
 * Each instance will share the same copy of data
-* Class are reference type
-* When a class is assigned to var, constant or passed to function, its reference count is increased
+* Class are **reference type**
+* When a class is assigned to var, constant or passed to function, **its reference count is increased**
 * They also have extra stuff like inheritance & de-initializers
-* They are allocated in on heap memory
+* They are allocated in on **heap memory**
 
 | Value Type                                                        | Reference Type               |
 | ----------------------------------------------------------------- | ---------------------------- |
-| Int, Double, String, Array, Dictionary, Set, Struct, enum & Tuple | Classes, function & closures |
+| Int, Double, String, Array, Dictionary, Set, Struct, enum & Tuple | Classes, Actors, function & closures |
 
 ### enums
 
@@ -137,7 +137,7 @@ Class:
 ### Closures-Blocks
 
 * They are referred as anonymous functions; self-contained blocks of code that can be assigned to variables, passed as arguments to functions, and returned from functions
-*   They are known as blocks in obj-c
+* They are known as blocks in obj-c
 
     ```
     let closureName: (InputType) -> OutputType = { (parameters) in
