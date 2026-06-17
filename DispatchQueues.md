@@ -78,6 +78,8 @@ DispatchQueue.global(qos: .userInitiated).async {
 
 ```swift
 let myQueue = DispatchQueue(label: "com.myapp.networking")
+let defaultConcurrentQueue = DispatchConcurrentQueue(label: "com.default.concurrent")
+let defaultSerialQueue = DispatchSerialQueue(label: "com.default.serial")
 ```
 
 ---
