@@ -1894,8 +1894,6 @@ struct AnimationValues {
 | `@AppStorage` | Persist small values in `UserDefaults` |
 | `@SceneStorage` | Restore temporary scene UI state |
 
----
-
 ## Memory Shortcut
 
 ```text
@@ -2043,6 +2041,62 @@ struct TodoRowView: View {
 }
 ```
 
+---
+
+## SwiftUI Property Wrapper: `value`, `$value`, `_value`, and `self`
+
+## The 3 Access Patterns
+
+Using `@State var count = 0` as example:
+
+| Syntax | What you get | Type | When to use | Example |
+|--------|-------------|------|-------------|---------|
+| `count` | The raw value | `Int` | Read / write normally | `Text("\(count)")` / `count += 1` |
+| `$count` | Projected value (binding) | `Binding<Int>` | Pass two-way binding to child views | `Stepper(value: $count)` |
+| `_count` | The wrapper struct itself | `State<Int>` | Inject wrapper in `init` | `_count = State(initialValue: 5)` |
+
+---
+
+## Which Wrappers Expose `$` Projection?
+
+| Wrapper | `value` type | `$value` type | Notes |
+|---------|-------------|---------------|-------|
+| `@State` | `T` | `Binding<T>` | Pass `$` down to children; never up |
+| `@Binding` | `T` | `Binding<T>` | `$` re-projects the same binding further down |
+| `@StateObject` | `T` | `ObservedObject<T>.Wrapper` | `$vm.prop` gives a binding to that property |
+| `@ObservedObject` | `T` | `ObservedObject<T>.Wrapper` | Same as `@StateObject` projection |
+| `@Environment` | `T` | — | No `$` projection; read-only |
+| `@EnvironmentObject` | `T` | `ObservedObject<T>.Wrapper` | Can project `$` for sub-bindings |
+| `@Bindable` | `T` | `Bindable<T>` | Used with `@Observable` macro |
+
+---
+
+## `_` Underscore — Common Use Cases
+
+| Scenario | Code |
+|----------|------|
+| Set `@State` in `init` | `_count = State(initialValue: passedValue)` |
+| Set `@Binding` in `init` | `_isOn = binding` |
+| Set `@StateObject` in `init` | `_vm = StateObject(wrappedValue: MyVM(id: id))` |
+
+---
+
+## `self` in Custom Property Wrappers
+
+| Where | Purpose |
+|-------|---------|
+| In `init` | Disambiguate param vs stored property: `self.min = min` |
+| In `projectedValue` | Return the wrapper itself: `var projectedValue: Self { self }` |
+| In `mutating` methods | Replace the whole wrapper: `self = Clamped(wrappedValue: 0, ...)` |
+
+---
+
+## Quick Mental Model
+
+- `value` → everyday read/write
+- `$value` → hand it to a child for two-way sync
+- `_value` → touch the wrapper machinery (almost always only in `init`)
+- `self` → standard Swift disambiguation inside custom wrappers
 ---
 
 # End
