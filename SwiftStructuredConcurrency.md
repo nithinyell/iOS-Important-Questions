@@ -699,6 +699,49 @@ actor Analytics {
 }
 ```
 
+### Actor Reentrancy
+
+When an actor hits an await keyword, it suspends its execution to let the system use that thread for other work. While suspended, new tasks can enter the actor and execute
+Use Task Coalescing (storing an ongoing Task<Data, Error> in a dictionary) to ensure duplicate concurrent calls await the same network request instead of spawning new one
+
+```
+actor DataRepository {
+    private var cache: [String: Data] = [:]
+    
+    // 1. Keep track of active, ongoing tasks
+    private var activeTasks: [String: Task<Data, Error>] = [:]
+    
+    func fetchAndProcessData(for key: String) async throws -> Data {
+        // If it's already in the data cache, return it
+        if let cached = cache[key] { return cached }
+        
+        // 2. If there is already an active task downloading this key, return its result!
+        if let existingTask = activeTasks[key] {
+            return try await existingTask.value
+        }
+        
+        // 3. If no task exists, create a new one and store it in activeTasks
+        let newTask = Task {
+            let rawData = await networkClient.download(key)
+            return backgroundProcess(rawData)
+        }
+        
+        activeTasks[key] = newTask
+        
+        // 4. Clean up the active task dictionary when done, and save to cache
+        do {
+            let processedData = try await newTask.value
+            cache[key] = processedData
+            activeTasks[key] = nil // Remove from active tasks
+            return processedData
+        } catch {
+            activeTasks[key] = nil // Clean up on failure
+            throw error
+        }
+    }
+}
+```
+
 ---
 
 ## The full pattern
