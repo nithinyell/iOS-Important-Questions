@@ -2,7 +2,7 @@
 
 ## Round 1 - More of Swift Questions
 1. **Struct vs Class - enums structs**
-2. **String vs Weak vs Unowned**
+2. **Strong vs Weak vs Unowned**
 3. **Actors**: Are they value or reference types? Discuss advantages.
 4. **Automatic Reference Counting (ARC)**
 5. **Protocols - Generic Protocols**: What are the advantages? Protocol to handle sum of int and strings.
