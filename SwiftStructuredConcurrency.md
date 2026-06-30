@@ -77,6 +77,13 @@ func loadProfile() async throws {
 
 `await` suspends the function — it yields the thread so other work can run — then resumes when the result is ready. It does **not** block the thread.
 
+| Feature | Structured Concurrency (`async let`, `TaskGroup`) | Unstructured Concurrency (`Task`, `Task.detached`) |
+| :--- | :--- | :--- |
+| **Hierarchy** | Strict parent-child relationship. | Completely independent. |
+| **Cancellation** | **Automatic.** If the parent cancels, children cancel. | **Manual.** You must track and cancel it yourself. |
+| **Lifetime** | Tied to the scope/function block. | Can outlive the scope that created it. |
+| **Best Used For** | Splitting a single job into multiple parallel parts. | Fire-and-forget tasks, or triggering background work from non-async functions. |
+
 ---
 
 ## Converting a Completion Handler
